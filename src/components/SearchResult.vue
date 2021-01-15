@@ -9,15 +9,7 @@
 
 <script>
 export default {
-  name: 'ProductSearch',
-  data: () => ({
-    product: {
-      productId: 'prod1',
-      category: 'headphone',
-      stock: 5,
-      attribute: 'okay'
-      }
-  }),
+  name: 'SearchResult',
   props: ['product']
 }
 </script>

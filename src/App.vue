@@ -26,7 +26,7 @@
             </ul>
             <form class="form-inline">
               <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-primary" type="submit">Search</button>
+              <router-link to="/search" class="style"><button class="btn btn-primary" type="submit">Search</button></router-link>
             </form>
           </div>
         </div>

@@ -44,7 +44,9 @@ export default {
       //   })
       //   .then(() => {
       //     console.log(1)
+      //     router.push('/merchantdashboard', onComplete?, onAbort?)
       //   })
+      this.$router.push('/merchantdashboard')
       console.log(data)
     }
   }

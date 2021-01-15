@@ -5,7 +5,7 @@
       <div class="d-flex flex-column align-items-center text-center">
         <img :src="picture" alt="Admin" class="rounded-circle" width="150">
         <div class="mt-3">
-          <button class="btn btn-primary">My Orders</button>
+          <router-link to="/merchantorders" class="style"><button class="btn btn-primary">My Orders</button></router-link>
           <button class="btn btn-outline-primary" @click="toggleEdit">Edit</button>
           <button v-if="edit" class="btn btn-outline-primary" @click="saveEdit">Save</button>
         </div>
