@@ -3,33 +3,34 @@
     <div id="nav">
       <!-- <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> | -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
+      <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
-<div class="navbar-header">
-  <router-link to="/" class="navbar-brand style" style="display:inline"><span class="glyphicon glyphicon-headphones style" aria-hiddent="true"></span>Soundholics</router-link>
-  <button type="button" class="navbar-toggle collapsed ml-auto" data-toggle="collapse" data-target="#bs-nav-demo" aria-controls="bs-nav-demo" aria-expanded="false" aria-label="Toggle navigation">
-<span class="sr-only">Toggle navigation</span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-</button>
-<!-- <div class="collapse navbar-collapse" id="bs-nav-demo"> -->
-<!-- <ul class="nav navbar-nav">
-<li><a href="#">About</a></li>
-<li><a href="#">Contact</a></li>
-</ul> -->
-<ul class="nav navbar-nav navbar-right collapse navbar-collapse" id="bs-nav-demo">
-<li><router-link to="/register" class="style">Sign Up</router-link></li>
-<li><router-link to="/login" class="style">Login</router-link></li>
-<li><router-link to="/login" class="style"><span class="glyphicon glyphicon-shopping-cart style" aria-hiddent="true"></span>Cart</router-link></li>
-</ul>
-<form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-primary" type="submit">Search</button>
-  </form>
-</div>
-</div>
-    </nav>
+          <div class="navbar-header">
+            <router-link to="/" class="navbar-brand style" style="display:inline"><span class="glyphicon glyphicon-headphones style" aria-hiddent="true"></span>Soundholics</router-link>
+            <button type="button" class="navbar-toggle collapsed ml-auto" data-toggle="collapse" data-target="#bs-nav-demo" aria-controls="bs-nav-demo" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <!-- <div class="collapse navbar-collapse" id="bs-nav-demo"> -->
+            <!-- <ul class="nav navbar-nav">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            </ul> -->
+            <ul class="nav navbar-nav navbar-right collapse navbar-collapse" id="bs-nav-demo">
+              <li><router-link to="/merchantlogin" class="style">Seller Login</router-link></li>
+              <!-- <li><router-link to="/register" class="style">Sign Up</router-link></li> -->
+              <li><router-link to="/login" class="style">Login</router-link></li>
+              <li><router-link to="/login" class="style"><span class="glyphicon glyphicon-shopping-cart style" aria-hiddent="true"></span>Cart</router-link></li>
+            </ul>
+            <form class="form-inline">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
     </div>
     <router-view/>
   </div>
