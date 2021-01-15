@@ -37,20 +37,10 @@
             <hr>
             <div class="row">
               <div class="col-xl-3">
-                <h6 class="mb-0">Phone</h6>
+                <h6 class="mb-0">GST Number</h6>
                 <div class="col-xl-9 text-secondary">
-                  <span v-if="!edit">{{phone}}</span>
-                  <input v-if="edit" type="text" name="phone" id="phone" v-model="phone">
-                </div>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-xl-3">
-                <h6 class="mb-0">Address</h6>
-                <div class="col-xl-9 text-secondary">
-                  <span v-if="!edit">{{address}}</span>
-                  <input v-if="edit" type="text" name="address" id="address" v-model="address">
+                  <span v-if="!edit">{{gst}}</span>
+                  <input v-if="edit" type="text" name="gst" id="gst" v-model="gst">
                 </div>
               </div>
             </div>
@@ -59,38 +49,57 @@
       </div>
     </div>
   </div>
+  <!-- <div>
+    <div v-if="!edit">
+      <p>Name: <span >{{name}}</span></p>
+      <p v-if="edit" >Password: </p>
+      <p>Email: <span >{{email}}</span></p>
+      <p>GST No: <span >{{gst}}</span></p>
+      <button  id="edit" @click="toggleEdit">Edit</button>
+    </div>
+    <div v-if="edit">
+      <input type="text" name="name" id="name" v-model="name">
+      <input  type="text" name="" id="">
+      <input type="text" name="email" id="email" v-model="email">
+      <input type="text" name="gst" id="gst" v-model="gst">
+      <button id="saveEdit" @click="saveEdit">Save</button>
+    </div>
+  </div> -->
 </template>
 
 <script>
 export default {
-  name: 'Profile',
+  name: 'MerchantProfile',
   data: () => ({
     picture: 'https://bootdey.com/img/Content/avatar/avatar7.png',
-    email: '',
-    name: 'Sound Holics',
-    address: '',
-    phone: 0,
+    name: 'Merchant Name',
+    email: 'example@example.com',
+    gst: '21HGFSDYW2168127',
     edit: false
   }),
   methods: {
-    authenticate () {
-      fetch('base_url', { method: 'POST', body: JSON.stringify.data }).then(res => res.json()).then().catch(error => console.error('Error', error))
-    },
     toggleEdit () {
       this.edit = !this.edit
+      console.log(22)
     },
     saveEdit () {
       const data = {
         name: this.name,
         email: this.email,
-        address: this.address,
-        phone: this.phone
+        gst: this.gst
       }
       // send edit details
       console.log(data)
       this.toggleEdit()
     }
   }
+  // beforeMount () {
+  //   // fetch merchant details
+  //   this.name = 'beforeMount'
+  //   this.email = 'beforeMountemail'
+  //   this.gst = 'beforeMountgst'
+  //   console.log(1)
+  // }
 }
 </script>
 
