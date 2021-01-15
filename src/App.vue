@@ -49,10 +49,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: #0d7377;
 }
 
 #nav {
   padding: 30px;
+  background-color: #222;
 
   a {
     font-weight: bold;
@@ -62,6 +64,9 @@ export default {
       color: #42b983;
     }
   }
+}
+.navbar-inverse{
+  border: none !important;
 }
 @media(max-width:767px) {
     .navbar .navbar-form {
