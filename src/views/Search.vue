@@ -30,7 +30,12 @@
         <SearchResult v-for="product in products" v-bind:key="product.productId" :product="product"/>
       </section>
     </div>
+  <div class="search">
+    <h1>Search Results</h1>
+      <SearchResult v-for="product in products" v-bind:key="product.productId" :product="product" />
   </div>
+  </div>
+
 </template>
 
 <script>

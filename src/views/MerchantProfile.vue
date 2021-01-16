@@ -7,7 +7,7 @@
         <div class="mt-3">
           <router-link to="/merchantorders" class="style"><button class="btn btn-primary">My Orders</button></router-link>
           <button class="btn btn-outline-primary" @click="toggleEdit">Edit</button>
-          <button v-if="edit" class="btn btn-outline-primary" @click="saveEdit">Save</button>
+          <button v-if="edit" class="btn btn-primary" @click="saveEdit">Save</button>
         </div>
       </div>
     </div>
@@ -17,7 +17,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-xl-3">
-                <h6 class="mb-0">Full Name</h6>
+                <label class="mb-0">Full Name:</label>
                 <div class="col-xl-9 text-secondary">
                   <span v-if="!edit">{{name}}</span>
                   <input v-if="edit" type="text" name="name" id="name" v-model="name">
@@ -27,7 +27,7 @@
             <hr>
             <div class="row">
               <div class="col-xl-3">
-                <h6 class="mb-0">Email</h6>
+                <label class="mb-0">Email:</label>
                 <div class="col-xl-9 text-secondary">
                   <span v-if="!edit">{{email}}</span>
                   <input v-if="edit" type="text" name="email" id="email" v-model="email">
@@ -37,7 +37,7 @@
             <hr>
             <div class="row">
               <div class="col-xl-3">
-                <h6 class="mb-0">GST Number</h6>
+                <label class="mb-0">GST Number:</label>
                 <div class="col-xl-9 text-secondary">
                   <span v-if="!edit">{{gst}}</span>
                   <input v-if="edit" type="text" name="gst" id="gst" v-model="gst">
@@ -106,21 +106,23 @@ export default {
 <style>
 body{
     margin-top:20%;
-    color: #1a202c;
+    /* margin: 120px auto 0; */
+    color: #14ffec;
     text-align: left;
-    background-color: #e2e8f0;
+    /* background-color: #121212; */
+    /* padding: 15px; */
 }
-.profile {
-    padding: 15px;
+.profile{
+  padding: 15px;
 }
 .card {
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+    box-shadow: 0 1px 3px 0 #121212, 0 1px 2px 0 #121212;
     position: relative;
     display: flex;
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: #fff;
+    background-color: #323232;
     background-clip: border-box;
     border: 0 solid rgba(0,0,0,.125);
     border-radius: .25rem;
@@ -144,5 +146,16 @@ body{
 .btn {
   margin: 4px;
   width: 100px;
+}
+.btn-primary{
+  background-color: #14ffec;
+  color: #0D7377;
+}
+.btn-outline-primary{
+  color: #14ffec;
+  background-color: #0D7377;
+}
+input{
+  color:#121212;
 }
 </style>

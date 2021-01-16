@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="merchantOrder">
     <h1>Orders</h1>
     <MerchantOrder v-for="order in orders" :key="order.name" :order="order" />
   </div>
@@ -48,5 +48,11 @@ export default {
 </script>
 
 <style>
-
+#merchantOrder{
+  margin: 120px auto 0;
+  border: 2px solid #323232;
+  width: 320px;
+  padding: 10px;
+  color: #14ffec;
+}
 </style>

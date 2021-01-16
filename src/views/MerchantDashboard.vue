@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="merchantDashboard">
     <h1>Dashboard</h1>
     <button>Add Product</button>
     <button>Delete Product </button>
@@ -47,5 +47,15 @@ export default {
 </script>
 
 <style>
-
+#merchantDashboard{
+  border: 2px solid #323232;
+  width: fit-content;
+  margin: 120px auto 0;
+  padding: 10px;
+  color: #14ffe7;
+}
+button{
+  background-color: #323232;
+  margin: 10px
+}
 </style>

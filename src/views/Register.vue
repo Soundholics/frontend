@@ -34,7 +34,7 @@ export default {
       pass: '',
       name: '',
       address: '',
-      phone: ''
+      phone: 0
     }
   }),
   methods: {
@@ -47,22 +47,21 @@ export default {
 </script>
 
 <style>
+.register{
+    border: 2px solid #323232;
+    width: fit-content;
+    margin: 120px auto 0;
+    padding: 10px;
+    color: #14ffec;
+}
 label[for], input{
     margin: 10px;
 }
-.signUp{
-    align-content: center;
-    margin: auto;
+input[type="submit"]{
+    background-color: #323232;
+    color: #14ffec;
 }
-.register{
-    border: 2px solid black;
-    display: block;
-    width: 450px;
-    margin: 100px auto 0;
-    text-align: center;
-    padding: 10px;
-}
-input[name="address"]{
-    height: 30px;
+input{
+  color:#323232
 }
 </style>
