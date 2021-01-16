@@ -75,6 +75,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "register" */ '../views/MerchantOrders.vue')
   },
   {
+    path: '/customerorders',
+    name: 'CustomerOrders',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "register" */ '../views/CustomerOrders.vue')
+  },
+  {
     path: '/merchantdashboard',
     name: 'MerchantDashboard',
     // route level code-splitting
@@ -89,6 +97,14 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "register" */ '../views/Search.vue')
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "register" */ '../views/Cart.vue')
   }
 ]
 

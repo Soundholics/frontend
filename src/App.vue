@@ -22,7 +22,7 @@
               <li><router-link to="/merchantlogin" class="style">Seller Login</router-link></li>
               <!-- <li><router-link to="/register" class="style">Sign Up</router-link></li> -->
               <li><router-link to="/login" class="style">Login</router-link></li>
-              <li><router-link to="/login" class="style"><span class="glyphicon glyphicon-shopping-cart style" aria-hiddent="true"></span>Cart</router-link></li>
+              <li><router-link to="/cart" class="style"><span class="glyphicon glyphicon-shopping-cart style" aria-hiddent="true"></span>Cart</router-link></li>
             </ul>
             <form class="form-inline">
               <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
