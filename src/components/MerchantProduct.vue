@@ -1,6 +1,8 @@
 <template>
   <div class="product">
+    <label for="productName">Product Name:</label>
     <p>{{product.productName}}</p>
+    <label for="quantity">Order Amount:</label>
     <p>{{product.quantity}}</p>
     <button>Edit</button>
   </div>
@@ -15,7 +17,9 @@ export default {
 
 <style>
   .product{
-    border: 1px black solid;
+    border: 2px #323232 solid;
+    border-bottom: 2px solid #323232;
     margin: 10px;
+    padding: 5px;
   }
 </style>

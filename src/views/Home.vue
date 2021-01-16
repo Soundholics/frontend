@@ -5,8 +5,6 @@
       <img src="../assets/headphone.svg" alt="Headphone">
       <figcaption>Headphones</figcaption>
     </figure>
-    <!-- <img src="src/assets/earphone.png" alt="Earphone">
-    <figcaption>Earphone</figcaption> -->
     <figure>
       <img src="../assets/earphone.svg" alt="Earphone">
       <figcaption>Earphone</figcaption>
@@ -24,12 +22,30 @@
       <figcaption>Audio Players</figcaption>
     </figure>
     </nav>
-    <div class="flex-container">
-      <img src="../assets/speaker-temp.jpeg" alt="" class="temp">
-      <img src="../assets/earphone-temp.jpeg" alt="" class="temp">
-      <img src="../assets/earbuds-temp.jpeg" alt="" class="temp">
-      <img src="../assets/headphone-temp.jpeg" alt="" class="temp">
-      <img src="../assets/audioplayer-temp.jpeg" alt="" class="temp">
+    <!-- <div class="flex-container">
+      <img v-for="product in products" :key=product._id :src='product.images' :alt=product.category class="temp">
+    </div> -->
+    <div class="container-image">
+      <figure>
+        <img src="../assets/audioplayer-temp.jpeg" alt="Audioplayer">
+        <figcaption>Audio Player</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/earbuds-temp.jpeg" alt="Audioplayer">
+        <figcaption>Earbuds</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/earphone-temp.jpeg" alt="Audioplayer">
+        <figcaption>Earphones</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/speaker-temp.jpeg" alt="Audioplayer">
+        <figcaption>Speaker</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/headphone-temp.jpeg" alt="Audioplayer">
+        <figcaption>Headphone</figcaption>
+      </figure>
     </div>
   </div>
 </template>
@@ -40,38 +56,88 @@
 
 export default {
   name: 'Home'
-//   components: {
-//     HelloWorld
-//   }
+  // data: () => ({
+  //   products: [{
+  //     _id: 'prod1',
+  //     category: 'speaker',
+  //     stock: 5,
+  //     attribute: [],
+  //     images: '../assets/speaker-temp.jpeg'
+  //   },
+  //   {
+  //     _id: 'prod2',
+  //     category: 'earphone',
+  //     stock: 5,
+  //     attribute: [],
+  //     images: '../assets/earphone-temp.jpeg'
+  //   },
+  //   {
+  //     _id: 'prod3',
+  //     category: 'headphone',
+  //     stock: 5,
+  //     attribute: [],
+  //     images: '../assets/headphone-temp.jpeg'
+  //   },
+  //   {
+  //     _id: 'prod4',
+  //     category: 'earbuds',
+  //     stock: 5,
+  //     attribute: [],
+  //     images: '../assets/earbuds-temp.jpeg'
+  //   },
+  //   {
+  //     _id: 'prod6',
+  //     category: 'headphone',
+  //     stock: 5,
+  //     attribute: [],
+  //     images: '../assets/audioplayer-temp.jpeg'
+  //   }
+  //   ]
+  // })
+  // }),
+  // computed: {
+  //   url: function () {
+  //     const images = require.context('../assets/', false, /\.jpeg$/)
+  //     return images('./' + images + '.jpeg')
+  //   }
+  // }
 }
 </script>
 <style>
-figure{
-  display: inline-block;
-  margin: 6px;
+.home{
+   margin: 20% auto 0;
+  /* background-color: #323232; */
+  color: #14ffec;
 }
-figure img {
-    /* height: 75px; */
-    height: 3em;
-  }
-  #cat{
-    padding-top: 70px;
+#cat{
+    /* padding-top: 70px; */
     display: flex;
     justify-content:space-around;
     background-color: #323232;
-    color: #00ccff;
+    color: #14ffec;
   }
-  .flex-container{
-    display: flexbox;
+/* figure{
+  display: inline-block;
+  margin: 6px;
+} */
+/*figure img {
+    height: 3em;
+  }*/
+  .container-image{
+    display: flex;
     flex-direction: row;
     margin-top: 20px;
     background-color: #0d7377;
   }
-  .temp{
+  /*.temp{
     max-width: 20%;
     height: 60rem;
+  }*/
+  .container-image figure{
+    background-color: #323232;
   }
-  #home{
-    background-color: #0d7377;
+  .container-image figure img{
+    height: 450px;
+    width: 300px;
   }
 </style>

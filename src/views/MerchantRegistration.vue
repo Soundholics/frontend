@@ -13,7 +13,7 @@
         <label for="name"><strong>Name:</strong></label>
         <input type="text" placeholder="Name" name="name" required v-model="name">
         <br>
-        <label for="address"><strong>Address:</strong></label>
+        <label for="address"><strong>GST Number:</strong></label>
         <input type="text" placeholder="GST Number" name="gst" required v-model="gstno">
         <br>
         <input type="submit" placeholder="Submit" name="submit" @click="register">
@@ -58,23 +58,24 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>>
+<style lang="scss">
+.register{
+    border: 2px solid #323232;
+    // display: block;
+    width: fit-content;
+    margin: 120px auto 0;
+    // text-align: center;
+    padding: 10px;
+    color: #14ffec;
+}
 label[for], input{
     margin: 10px;
 }
-.signUp{
-    align-content: center;
-    margin: auto;
+input[type="submit"]{
+    background-color: #323232;
+    color: #14ffec;
 }
-.register{
-    border: 2px solid black;
-    display: block;
-    width: 450px;
-    margin: 100px auto 0;
-    text-align: center;
-    padding: 10px;
-}
-input[name="address"]{
-    height: 30px;
+input{
+  color: #323232;
 }
 </style>

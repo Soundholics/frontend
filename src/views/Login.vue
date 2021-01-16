@@ -12,9 +12,9 @@
         <hr>
         <router-link to="/register">Sign up?</router-link>
         <br>
-        <input type="submit" placeholder="Submit" name="submit" @click="authenticate">
+        <input type="submit" placeholder="Submit" name="submit" id="blue" @click="authenticate">
         <br>
-        <a href="" class="btn btn-block btn-outline-info"> <i class="fab fa-twitter"></i>Login via Twitter</a>
+        <a href="" class="btn btn-block btn-outline-info"> <i class="fas fa-at"></i>Login via Gmail</a>
 <br>
 <a href="" class="btn btn-block btn-outline-primary"> <i class="fab fa-facebook-f"></i>Login via facebook</a>
     </form>
@@ -37,19 +37,28 @@ export default {
 </script>
 
 <style>
+.login{
+    border: 2px solid #323232;
+    background-color: #0D7377;
+    /* display: block; */
+    width: fit-content;
+    margin: 120px auto 0;
+    /* text-align: center; */
+    padding: 10px;
+    color: #14ffec;
+}
 label[for], input{
     margin: 10px;
 }
-.signUp{
-    align-content: center;
-    margin: auto;
+#blue, .btn{
+  background-color: #323232;
+  color: #14ffec;
+  border: none;
 }
-.login{
-    border: 2px solid black;
-    display: block;
-    width: 450px;
-    margin: 100px auto 0;
-    text-align: center;
-    padding: 10px;
+a{
+  color: #14ffec;
+}
+hr{
+  border-top: 1px solid #323232;
 }
 </style>

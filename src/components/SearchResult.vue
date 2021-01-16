@@ -1,8 +1,12 @@
 <template>
   <div class="productSearch">
-      <h2>{{product.productId}}</h2>
-      <h3>{{product.category}}</h3>
-      <p><strong>Stock remaining: {{product.stock}}</strong></p>
+    <label for="id">Id:</label>
+      <p>{{product.productId}}</p>
+      <label for="cat">Category:</label>
+      <p>{{product.category}}</p>
+      <label for="stock">Stock Remaining:</label>
+      <p>{{product.stock}}</p>
+      <label for="attribute">Attributes:</label>
       <p>{{product.attribute}}</p>
   </div>
 </template>
@@ -15,4 +19,8 @@ export default {
 </script>
 
 <style>
+.productSearch{
+  border: 2px solid #323232;
+  margin: 10px;
+}
 </style>
