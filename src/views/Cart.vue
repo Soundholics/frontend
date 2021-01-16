@@ -1,57 +1,23 @@
 <template>
-  <div>
-    <h1>Cart</h1>
-    <CartItem v-for="cartItem in cartItems" :key="cartItem.productName" :cartItem="cartItem" />
-    <h3>Subtotal: <span>{{subtotal}}</span></h3>
-    <button @click="checkout">Checkout</button>
-    <table class="table table-hover shopping-cart-wrap">
-      <thead class="text-muted">
-        <tr>
-          <th scope="col">Product</th>
-          <th scope="col" width="120">Quantity</th>
-          <th scope="col" width="120">Price</th>
-          <th scope="col" width="200" class="text-right">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <figure class="media">
-              <div class="img-wrap"><img src="http://bootstrap-ecommerce.com/main/images/items/2.jpg" class="img-thumbnail img-sm"></div>
-              <figcaption class="media-body">
-                <h6 class="title text-truncate">Product name goes here </h6>
-                <dl class="param param-inline small">
-                  <dt>Size: </dt>
-                  <dd>XXL</dd>
-                </dl>
-                <dl class="param param-inline small">
-                  <dt>Color: </dt>
-                  <dd>Orange color</dd>
-                </dl>
-              </figcaption>
-            </figure>
-          </td>
-          <td>
-            <select class="form-control">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </select>
-          </td>
-          <td>
-            <div class="price-wrap">
-              <var class="price">USD 145</var>
-              <small class="text-muted">(USD5 each)</small>
-            </div> <!-- price-wrap .// -->
-          </td>
-          <td class="text-right">
-          <a title="" href="" class="btn btn-outline-success" data-toggle="tooltip" data-original-title="Save to Wishlist"> <i class="fa fa-heart"></i></a>
-          <a href="" class="btn btn-outline-danger"> × Remove</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div id="cartpage">
+    <div class="shopping-cart">
+      <h1>Your Cart</h1>
+      <CartItem v-for="cartItem in cartItems" :key="cartItem.productName" :cartItem="cartItem" />
+    </div>
+    <div id="spacer"></div>
+    <div class="summary">
+      <p>Subtotal: <span>{{subtotal}}</span></p>
+      <!-- <div>
+        <label for="cars">Select payment method:</label>
+        <select name="cars" id="cars">
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="mercedes">Mercedes</option>
+          <option value="audi">Audi</option>
+        </select>
+      </div> -->
+      <button id="checkout" @click="checkout">Checkout</button>
+    </div>
   </div>
 </template>
 
@@ -62,26 +28,26 @@ export default {
   name: 'Cart',
   data: () => ({
     cartItems: [
-      // {
-      //   productName: 'product 1',
-      //   productPrice: 400,
-      //   productQuanity: 2
-      // },
-      // {
-      //   productName: 'product 2',
-      //   productPrice: 250,
-      //   productQuanity: 6
-      // },
-      // {
-      //   productName: 'product 3',
-      //   productPrice: 390,
-      //   productQuanity: 1
-      // },
-      // {
-      //   productName: 'product 4',
-      //   productPrice: 450,
-      //   productQuanity: 7
-      // }
+      {
+        productName: 'product 1',
+        productPrice: 400,
+        productQuanity: 2
+      },
+      {
+        productName: 'product 2',
+        productPrice: 250,
+        productQuanity: 6
+      },
+      {
+        productName: 'product 3',
+        productPrice: 390,
+        productQuanity: 1
+      },
+      {
+        productName: 'product 4',
+        productPrice: 450,
+        productQuanity: 7
+      }
     ]
   }),
   computed: {
@@ -104,44 +70,36 @@ export default {
 </script>
 
 <style scoped>
-.param {
-    margin-bottom: 7px;
-    line-height: 1.4;
-}
-.param-inline dt {
-    display: inline-block;
-}
-.param dt {
-    margin: 0;
-    margin-right: 7px;
-    font-weight: 600;
-}
-.param-inline dd {
-    vertical-align: baseline;
-    display: inline-block;
+.shopping-cart {
+  background: #FFFFFF;
+  box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 3;
 }
 
-.param dd {
-    margin: 0;
-    vertical-align: baseline;
-}
-.shopping-cart-wrap .price {
-    color: #007bff;
-    font-size: 18px;
-    font-weight: bold;
-    margin-right: 5px;
-    display: block;
-}
-var {
-    font-style: normal;
+#cartpage{
+  width: 80%;
+  display: flex;
+  margin: 0 auto;
+  margin-top: 10%;
 }
 
-.media img {
-    margin-right: 1rem;
+#spacer {
+  flex-grow: 1;
+  max-width: 50px;
 }
-.img-sm {
-    width: 90px;
-    max-height: 75px;
-    object-fit: cover;
+.summary {
+  background: #FFFFFF;
+  flex-grow: 2;
+  align-content: center;
+  justify-content: center;
+}
+
+#checkout {
+  width: 100%;
+  border: none;
+  padding: 20px
 }
 </style>
