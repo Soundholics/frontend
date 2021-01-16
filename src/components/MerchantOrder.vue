@@ -1,13 +1,9 @@
 <template>
   <div class="order">
-    <label for="orderName">Name:</label>
-    <p>{{order.name}}</p>
-    <label for="orderQuantity">Quantity:</label>
-    <p>{{order.quantity}}</p>
-    <label for="orderDate">Date:</label>
     <p>{{order.date}}</p>
-    <label for="orderPrice">Price:</label>
-    <p for="orderPrice">{{order.price}}</p>
+    <p>{{order.name}}</p>
+    <p>{{order.quantity}}</p>
+    <p>{{order.price}}</p>
   </div>
 </template>
 
@@ -19,9 +15,15 @@ export default {
 </script>
 
 <style>
-  .order{
-    border: 2px solid #323232;
-    margin: 10px;
-    padding: 5px;
-  }
+.order {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background: white;
+  border: none;
+}
+
+img {
+  max-height: 100px;
+}
 </style>
