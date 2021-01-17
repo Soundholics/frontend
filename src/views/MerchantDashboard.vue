@@ -1,15 +1,28 @@
 <template>
   <div id="merchantDashboard">
     <h1>Dashboard</h1>
-    <button>Add Product</button>
+    <b-button v-b-modal.modal>Add Product</b-button>
     <button>Delete Product </button>
     <router-link to="/merchantorders" class="style"><button>Show Orders</button></router-link>
+    <div id="heading">
+      <p>Product Name</p>
+      <p>Product Quantity</p>
+      <p>Product Quantity</p>
+    </div>
     <MerchantProduct v-for="product in products" :key="product.productName" :product="product"/>
+    <div>
+      <b-modal id="modal" title="Add Product">
+        <div>Product Name: <input type="text"></div>
+        <div>Quantity: <input type="number"></div>
+        <div>Images: <input type="file"></div>
+      </b-modal>
+    </div>
   </div>
 </template>
 
 <script>
 import MerchantProduct from '../components/MerchantProduct'
+
 export default {
   components: { MerchantProduct },
   name: 'MerchantDashboard',
@@ -49,13 +62,18 @@ export default {
 <style>
 #merchantDashboard{
   border: 2px solid #323232;
-  width: fit-content;
   margin: 120px auto 0;
   padding: 10px;
-  color: #14ffe7;
 }
 button{
-  background-color: #323232;
   margin: 10px
+}
+#heading{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background: white;
+    border: none;
+    border-bottom: 1px solid grey;
 }
 </style>
