@@ -25,7 +25,8 @@
     <!-- <div class="flex-container">
       <img v-for="product in products" :key=product._id :src='product.images' :alt=product.category class="temp">
     </div> -->
-    <div class="container-image">
+    <Card></Card>
+    <!-- <div class="container-image">
       <figure>
         <img src="../assets/audioplayer-temp.jpeg" alt="Audioplayer">
         <figcaption>Audio Player</figcaption>
@@ -46,16 +47,17 @@
         <img src="../assets/headphone-temp.jpeg" alt="Audioplayer">
         <figcaption>Headphone</figcaption>
       </figure>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
-
+import Card from '../components/Card.vue'
 export default {
-  name: 'Home'
+  name: 'Home',
+  components: { Card }
   // data: () => ({
   //   products: [{
   //     _id: 'prod1',
@@ -105,7 +107,7 @@ export default {
 </script>
 <style>
 .home{
-   margin: 20% auto 0;
+   margin: 5% auto 0;
   /* background-color: #323232; */
   color: #14ffec;
 }

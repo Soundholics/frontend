@@ -54,9 +54,11 @@ label[for], input{
   background-color: #323232;
   color: #14ffec;
   border: none;
+  font-size:15px;
 }
 a{
   color: #14ffec;
+  font-size: 15px;
 }
 hr{
   border-top: 1px solid #323232;

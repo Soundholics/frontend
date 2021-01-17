@@ -58,13 +58,11 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped>
 .register{
     border: 2px solid #323232;
-    // display: block;
     width: fit-content;
     margin: 120px auto 0;
-    // text-align: center;
     padding: 10px;
     color: #14ffec;
 }
