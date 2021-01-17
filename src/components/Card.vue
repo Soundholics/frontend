@@ -1,5 +1,5 @@
  <template>
-<b-container>
+<b-container fluid>
     <b-row>
         <b-col class="carded">
       <img class="card-img-top" src="../assets/earphone-temp.jpeg" alt="Card image cap">
@@ -59,7 +59,6 @@ export default {
         background-color: #323232;
         margin:7px;
         width: fit-content;
-        justify-content: space-around;
         padding: 10px;
     }
 </style>

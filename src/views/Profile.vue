@@ -147,7 +147,7 @@ body{
     /* padding: 15px; */
 }
 .profile{
-  padding: 18px;
+  margin: 100px auto 0;
 }
 .card {
     box-shadow: 0 1px 3px 0 #121212, 0 1px 2px 0 #121212;
@@ -193,10 +193,13 @@ body{
 input{
   color:#121212;
 }
-span{
+span, h1{
   color: #14ffec;
 }
 hr{
   border-bottom: 1px solid #0D7377;
+}
+label{
+  color:#0D7377;
 }
 </style>
