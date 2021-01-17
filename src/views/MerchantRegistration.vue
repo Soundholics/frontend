@@ -60,7 +60,8 @@ export default {
 
 <style scoped>
 .register{
-    border: 2px solid #323232;
+  box-shadow: 3px 6px #121212;
+  background-color: #323232;
     width: fit-content;
     margin: 120px auto 0;
     padding: 10px;
@@ -70,8 +71,12 @@ label[for], input{
     margin: 10px;
 }
 input[type="submit"]{
-    background-color: #323232;
+    background-color: #121212;
     color: #14ffec;
+}
+input[type="submit"]:hover{
+  background-color: #0D7377;
+  color: white;
 }
 input{
   color: #323232;

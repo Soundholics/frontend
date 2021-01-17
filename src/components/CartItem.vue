@@ -11,18 +11,20 @@
     </div>
     <div class="total-price">${{cartItem.productPrice}}</div>
     <div class="quantity">
-      <button class="minus-btn" type="button" name="button">
+      <!-- <button class="minus-btn" type="button" name="button">
         -
       </button>
       <input type="text" name="name" :value="cartItem.productQuanity">
       <button class="plus-btn" type="button" name="button">
         +
-      </button>
+      </button> -->
+      <b-form-spinbutton id="demo-sb" v-model="cartItem.productQuanity" min="1" max="100"></b-form-spinbutton>
     </div>
     <div class="total-price">${{cartItem.productPrice * cartItem.productQuanity}}</div>
 
     <div class="buttons">
-      <span class="delete-btn"></span>
+      <button><b-icon-trash></b-icon-trash></button>
+      <!-- <span class="delete-btn"></span> -->
     </div>
   </div>
 </template>
@@ -39,16 +41,18 @@ export default {
   padding: 20px 30px;
   height: 120px;
   display: flex;
+  color: #14ffec;
+  justify-content: space-around;
 }
 
-.item:nth-child(3) {
+/*.item:nth-child(3) {
   border-top:  1px solid #E1E8EE;
   border-bottom:  1px solid #E1E8EE;
-}
+} */
 .buttons {
   position: relative;
-  padding-top: 30px;
-  margin-left: auto;
+  padding-top: 20px;
+  /* margin-left: auto; */
 }
 .delete-btn{
   display: inline-block;
@@ -59,18 +63,18 @@ export default {
   height: 17px;
   background: url("../assets/logo.png") no-repeat center;
 }
-.image {
+/* .image {
   margin-right: 50px;
-}
+} */
 .description {
-  padding-top: 10px;
-  margin-right: 60px;
+  padding-top: 20px;
+  /* margin-right: 60px; */
   width: 115px;
 }
 .description span {
   display: block;
   font-size: 14px;
-  color: #43484D;
+  color: #14ffec;
   font-weight: 400;
 }
 
@@ -80,11 +84,12 @@ export default {
 .description span:last-child {
   font-weight: 300;
   margin-top: 8px;
-  color: #86939E;
+  color: #14ffec;
+  font-size: 16px;;
 }
 .quantity {
   padding-top: 20px;
-  margin-right: 60px;
+  /* margin-right: 60px; */
 }
 .quantity input {
   -webkit-appearance: none;
@@ -92,7 +97,7 @@ export default {
   text-align: center;
   width: 32px;
   font-size: 16px;
-  color: #43484D;
+  color: #14ffec;
   font-weight: 300;
 }
 button[class*=btn] {
@@ -116,10 +121,10 @@ input:focus {
 
 .total-price {
   width: 83px;
-  padding-top: 27px;
+  padding-top: 25px;
   text-align: center;
   font-size: 16px;
-  color: #43484D;
+  color: #14ffec;
   font-weight: 300;
 }
 
@@ -144,8 +149,8 @@ input:focus {
     text-align: center;
     margin: 6px 0;
   }
-  .buttons {
+  /* .buttons {
     margin-right: 20px;
-  }
+  } */
 }
 </style>

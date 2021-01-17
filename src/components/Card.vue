@@ -4,48 +4,48 @@
         <b-col class="carded">
       <img class="card-img-top" src="../assets/earphone-temp.jpeg" alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title">Earphone</h5>
+        <h5 class="card-title">{{productItem[0].name}}</h5>
+                <p class="card-text">{{productItem[0].category}}</p>
       </div>
         </b-col>
-                <b-col class="carded">
-      <img class="card-img-top" src="../assets/headphone-temp.jpeg" alt="Card image cap">
+        <b-col class="carded">
+      <img class="card-img-top" src="../assets/audioplayer-temp.jpeg" alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title">Headphone</h5>
+        <h5 class="card-title">{{productItem[1].name}}</h5>
+                <p class="card-text">{{productItem[1].category}}</p>
       </div>
         </b-col>
                 <b-col class="carded">
       <img class="card-img-top" src="../assets/earbuds-temp.jpeg" alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title">Earbuds</h5>
+        <h5 class="card-title">{{productItem[2].name}}</h5>
+                <p class="card-text">{{productItem[2].category}}</p>
       </div>
         </b-col>
-                <b-col class="carded">
-      <img class="card-img-top" src="../assets/audioplayer-temp.jpeg" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Audio Player</h5>
-      </div>
-        </b-col>
+    </b-row>
+        <b-row>
                 <b-col class="carded">
       <img class="card-img-top" src="../assets/speaker-temp.jpeg" alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title">Speaker</h5>
+        <h5 class="card-title">{{productItem[3].name}}</h5>
+                <p class="card-text">{{productItem[3].category}}</p>
+      </div>
+        </b-col>
+        <b-col class="carded">
+      <img class="card-img-top" src="../assets/headphone-temp.jpeg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{productItem[4].name}}</h5>
+        <p class="card-text">{{productItem[4].category}}</p>
       </div>
         </b-col>
     </b-row>
 </b-container>
- <!-- <div class="cards">
-    <div class="card">
-      <img class="card-img-top" src="../assets/earphone-temp.jpeg" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Earphone</h5>
-      </div>
-    </div>
- </div> -->
-  </template>
+</template>
 
 <script>
 export default {
-  name: 'Card'
+  name: 'Card',
+  props: ['productItem']
 }
 </script>
 

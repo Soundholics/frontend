@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+        <Carousel/>
     <nav id="cat">
     <figure>
       <img src="../assets/headphone.svg" alt="Headphone">
@@ -22,84 +23,61 @@
       <figcaption>Audio Players</figcaption>
     </figure>
     </nav>
-    <!-- <div class="flex-container">
-      <img v-for="product in products" :key=product._id :src='product.images' :alt=product.category class="temp">
-    </div> -->
-    <!-- <Card></Card> -->
-    <Carousel/>
-    <!-- <div class="container-image">
-      <figure>
-        <img src="../assets/audioplayer-temp.jpeg" alt="Audioplayer">
-        <figcaption>Audio Player</figcaption>
-      </figure>
-      <figure>
-        <img src="../assets/earbuds-temp.jpeg" alt="Audioplayer">
-        <figcaption>Earbuds</figcaption>
-      </figure>
-      <figure>
-        <img src="../assets/earphone-temp.jpeg" alt="Audioplayer">
-        <figcaption>Earphones</figcaption>
-      </figure>
-      <figure>
-        <img src="../assets/speaker-temp.jpeg" alt="Audioplayer">
-        <figcaption>Speaker</figcaption>
-      </figure>
-      <figure>
-        <img src="../assets/headphone-temp.jpeg" alt="Audioplayer">
-        <figcaption>Headphone</figcaption>
-      </figure>
-    </div> -->
+    <card :productItem="products"/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
-// import Card from '../components/Card.vue'
+import Card from '../components/Card.vue'
 import Carousel from '../components/Carousel.vue'
 export default {
   name: 'Home',
-  // components: { Card }
-  components: { Carousel }
-  // data: () => ({
-  //   products: [{
-  //     _id: 'prod1',
-  //     category: 'speaker',
-  //     stock: 5,
-  //     attribute: [],
-  //     images: '../assets/speaker-temp.jpeg'
-  //   },
-  //   {
-  //     _id: 'prod2',
-  //     category: 'earphone',
-  //     stock: 5,
-  //     attribute: [],
-  //     images: '../assets/earphone-temp.jpeg'
-  //   },
-  //   {
-  //     _id: 'prod3',
-  //     category: 'headphone',
-  //     stock: 5,
-  //     attribute: [],
-  //     images: '../assets/headphone-temp.jpeg'
-  //   },
-  //   {
-  //     _id: 'prod4',
-  //     category: 'earbuds',
-  //     stock: 5,
-  //     attribute: [],
-  //     images: '../assets/earbuds-temp.jpeg'
-  //   },
-  //   {
-  //     _id: 'prod6',
-  //     category: 'headphone',
-  //     stock: 5,
-  //     attribute: [],
-  //     images: '../assets/audioplayer-temp.jpeg'
-  //   }
-  //   ]
-  // })
-  // }),
+  components: { Carousel, Card },
+  data: () => ({
+    products: [{
+      _id: 'prod1',
+      name: 'product1',
+      category: 'speaker',
+      stock: 5,
+      attribute: [],
+      images: '../assets/speaker-temp.jpeg'
+    },
+    {
+      _id: 'prod2',
+      name: 'product2',
+      category: 'earphone',
+      stock: 5,
+      attribute: [],
+      images: '../assets/earphone-temp.jpeg'
+    },
+    {
+      _id: 'prod3',
+      name: 'product3',
+      category: 'headphone',
+      stock: 5,
+      attribute: [],
+      images: '../assets/headphone-temp.jpeg'
+    },
+    {
+      _id: 'prod4',
+      name: 'product4',
+      category: 'earbuds',
+      stock: 5,
+      attribute: [],
+      images: '../assets/earbuds-temp.jpeg'
+    },
+    {
+      _id: 'prod6',
+      name: 'product5',
+      category: 'headphone',
+      stock: 5,
+      attribute: [],
+      images: '../assets/audioplayer-temp.jpeg'
+    }
+    ]
+  })
   // computed: {
   //   url: function () {
   //     const images = require.context('../assets/', false, /\.jpeg$/)
@@ -110,7 +88,7 @@ export default {
 </script>
 <style>
 .home{
-   margin: 100px auto 0;
+   margin: 80px auto 0;
   /* background-color: #323232; */
   color: #14ffec;
 }
@@ -120,6 +98,7 @@ export default {
     justify-content:space-around;
     background-color: #323232;
     color: #14ffec;
+    margin-bottom: 30px;
   }
 /* figure{
   display: inline-block;

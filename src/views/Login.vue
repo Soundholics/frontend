@@ -3,6 +3,7 @@
     <!-- <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <h1>User Login</h1>
+    <b-avatar size="5rem"></b-avatar>
     <form id="login" v-on:submit.prevent>
         <label for="uname"><strong>Username:</strong></label>
         <input type="text" placeholder="User Name" name="uname" required v-model="uname">
@@ -30,16 +31,17 @@ export default {
   }),
   methods: {
     authenticate () {
-      fetch('base_url', { method: 'POST', body: JSON.stringify.data }).then(res => res.json()).then().catch(error => console.error('Error', error))
+      fetch('base_url', { method: 'POST', body: JSON.stringify(this.data) }).then(res => res.json()).then().catch(error => console.error('Error', error))
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .login{
-    border: 2px solid #323232;
-    background-color: #0D7377;
+    /* border: 2px solid #121212; */
+    box-shadow: 3px 6px #121212;
+    background-color: #323232;
     /* display: block; */
     width: fit-content;
     margin: 120px auto 0;
@@ -51,16 +53,23 @@ label[for], input{
     margin: 10px;
 }
 #blue, .btn{
-  background-color: #323232;
+  background-color: #121212;
   color: #14ffec;
   border: none;
   font-size:15px;
+}
+#blue:hover{
+  background-color: #0D7377;
+  color: white;
 }
 a{
   color: #14ffec;
   font-size: 15px;
 }
 hr{
-  border-top: 1px solid #323232;
+  border-top: 1px solid #121212;
+}
+.b-avatar{
+  margin: 10px;
 }
 </style>

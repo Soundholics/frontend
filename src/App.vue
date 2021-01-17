@@ -11,7 +11,7 @@
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-        <b-collapse id="nav-collapse" class="justify-content-end" is-nav style="max-width:17rem;">
+        <b-collapse id="nav-collapse" class="justify-content-end" is-nav> <!--style="max-width:17rem;"-->
           <b-navbar-nav class="ms-auto">
             <b-nav-item to="/merchantlogin" class="style">Seller Login</b-nav-item>
             <b-nav-item to="/login" class="style">Login</b-nav-item>
@@ -20,6 +20,13 @@
         </b-collapse>
       </b-navbar>
     <router-view/>
+    <footer id="footer">
+      <div class="left">
+        <router-link to="/"><b-icon-house-fill></b-icon-house-fill>Home</router-link>
+        <router-link to="/about"><b-icon-info-circle-fill></b-icon-info-circle-fill>About</router-link>
+        <a href = "mailto: abc@example.com"><b-icon-telephone-fill></b-icon-telephone-fill>Contact Us</a>
+      </div>
+      </footer>
   </div>
 </template>
 
@@ -30,6 +37,19 @@ export default {
 </script>
 
 <style lang="scss">
+  #footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 30px;
+    width: 100%;
+    background-color: #121212;
+    color: #14ffec;
+}
+.left{
+  display: flex;
+  justify-content: space-around;
+}
 #app {
     background-color: #0D7377;
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -60,5 +80,8 @@ background-color: #14ffec;
 }
 #nav.bg-dark{
   background-color: #121212 !important;
+}
+#footer a{
+  color:#14ffec;
 }
 </style>

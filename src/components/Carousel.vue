@@ -18,7 +18,7 @@
             class="d-block img-fluid w-100"
             width="1024"
             height="480"
-            src="../assets/audioplayer-temp.jpeg"
+            src="../assets/Headphone-Carousel.jpg"
             alt="image slot"
           >
         </template>
@@ -29,7 +29,7 @@
             class="d-block img-fluid w-100"
             width="1024"
             height="480"
-            src="../assets/earbuds-temp.jpeg"
+            src="../assets/audioplayer-carousel.jpg"
             alt="image slot"
           >
         </template>
@@ -40,29 +40,7 @@
             class="d-block img-fluid w-100"
             width="1024"
             height="480"
-            src="../assets/earphone-temp.jpeg"
-            alt="image slot"
-          >
-        </template>
-      </b-carousel-slide>
-      <b-carousel-slide>
-        <template #img>
-          <img
-            class="d-block img-fluid w-100"
-            width="1024"
-            height="480"
-            src="../assets/headphone-temp.jpeg"
-            alt="image slot"
-          >
-        </template>
-      </b-carousel-slide>
-      <b-carousel-slide>
-        <template #img>
-          <img
-            class="d-block img-fluid w-100"
-            width="1024"
-            height="480"
-            src="../assets/speaker-temp.jpeg"
+            src="../assets/earphone-carousel.jpg"
             alt="image slot"
           >
         </template>
@@ -94,6 +72,7 @@ export default {
 <style>
 .img-fluid{
   max-height: 480px;
+  min-height: 480px;
   width: 1024px;
 }
 .carousel-inner{
