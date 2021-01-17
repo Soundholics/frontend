@@ -4,7 +4,7 @@
         <b-navbar-brand class="right">
         <router-link to="/" class="style"><b-icon icon="headphones" class="style" aria-hidden="true"></b-icon>Soundholics</router-link>
         </b-navbar-brand>
-        <b-nav-form class="mx-auto" style="width:200px">
+        <b-nav-form class="mx-auto" style="width:200px"> <!--style="width:200px"-->
           <b-form-input class="mx-auto" placeholder="Search"></b-form-input>
           <b-button class="style mx-auto" to="/search">Search</b-button>
         </b-nav-form>
@@ -83,5 +83,8 @@ background-color: #14ffec;
 }
 #footer a{
   color:#14ffec;
+}
+#nav-collapse:not(.show){
+  max-width:17rem;
 }
 </style>
