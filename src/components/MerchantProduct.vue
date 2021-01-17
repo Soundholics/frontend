@@ -2,7 +2,7 @@
   <div class="product">
     <label for="productName">Product Name:</label>
     <p>{{product.productName}}</p>
-    <label for="quantity">Order Amount:</label>
+    <label for="quantity">Product Quantity:</label>
     <p>{{product.quantity}}</p>
     <button>Edit</button>
   </div>
