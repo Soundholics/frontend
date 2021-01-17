@@ -1,7 +1,42 @@
 <template>
   <div class="profile">
     <h1>My Profile</h1>
-    <div class="row gitters-sm card card-body">
+    <b-card no-body class="overflow-hidden mx-auto card" style="max-width: 540px">
+      <b-row no-gutters>
+      <b-col md="4">
+        <img :src="picture" alt="Admin" class="rounded-circle" width="150">
+        <div class="mt-3">
+          <button class="btn btn-primary">My Orders</button>
+          <button class="btn btn-outline-primary" @click="toggleEdit">Edit</button>
+          <button v-if="edit" class="btn btn-primary" @click="saveEdit">Save</button>
+        </div>
+      </b-col>
+      <b-col md="8">
+                <label class="mb-0">Full Name:</label>
+                <div class="text-secondary">
+                  <span v-if="!edit">{{name}}</span>
+                  <input v-if="edit" type="text" name="name" id="name" v-model="name">
+                </div>
+                <hr>
+          <b-card-text>
+                <label class="mb-0">Email</label>
+                <div class="text-secondary">
+                  <span v-if="!edit">{{email}}</span>
+                  <input v-if="edit" type="text" name="email" id="email" v-model="email">
+              </div>
+          </b-card-text>
+          <hr>
+          <b-card-text>
+                <label class="mb-0">GST</label>
+                <div class="text-secondary">
+                  <span v-if="!edit">{{gst}}</span>
+                  <input v-if="edit" type="text" name="gst" id="gst" v-model="gst">
+                </div>
+          </b-card-text>
+      </b-col>
+    </b-row>
+  </b-card>
+    <!-- <div class="row gitters-sm card card-body">
       <div class="d-flex flex-column align-items-center text-center">
         <img :src="picture" alt="Admin" class="rounded-circle" width="150">
         <div class="mt-3">
@@ -47,24 +82,8 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
-  <!-- <div>
-    <div v-if="!edit">
-      <p>Name: <span >{{name}}</span></p>
-      <p v-if="edit" >Password: </p>
-      <p>Email: <span >{{email}}</span></p>
-      <p>GST No: <span >{{gst}}</span></p>
-      <button  id="edit" @click="toggleEdit">Edit</button>
-    </div>
-    <div v-if="edit">
-      <input type="text" name="name" id="name" v-model="name">
-      <input  type="text" name="" id="">
-      <input type="text" name="email" id="email" v-model="email">
-      <input type="text" name="gst" id="gst" v-model="gst">
-      <button id="saveEdit" @click="saveEdit">Save</button>
-    </div>
-  </div> -->
 </template>
 
 <script>
@@ -103,9 +122,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 body{
-    margin-top:20%;
+    margin-top:10%;
     /* margin: 120px auto 0; */
     color: #14ffec;
     text-align: left;
@@ -113,7 +132,7 @@ body{
     /* padding: 15px; */
 }
 .profile{
-  padding: 15px;
+  padding: 18px;
 }
 .card {
     box-shadow: 0 1px 3px 0 #121212, 0 1px 2px 0 #121212;
@@ -146,6 +165,7 @@ body{
 .btn {
   margin: 4px;
   width: 100px;
+  font-size: 15px;
 }
 .btn-primary{
   background-color: #14ffec;
@@ -157,5 +177,11 @@ body{
 }
 input{
   color:#121212;
+}
+span{
+  color: #14ffec;
+}
+hr{
+  border-bottom: 1px solid #0D7377;
 }
 </style>
