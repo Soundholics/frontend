@@ -1,39 +1,28 @@
 <template>
   <div id="merchantDashboard">
     <h1>Dashboard</h1>
-    <button>Add Product</button>
+    <b-button v-b-modal.modal>Add Product</b-button>
     <button>Delete Product </button>
     <router-link to="/merchantorders" class="style"><button>Show Orders</button></router-link>
+    <div id="heading">
+      <p>Product Name</p>
+      <p>Product Quantity</p>
+      <p>Product Quantity</p>
+    </div>
     <MerchantProduct v-for="product in products" :key="product.productName" :product="product"/>
-    <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
-    <!-- Modal -->
-    <div id="myModal" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Add Product</h4>
-          </div>
-          <div class="modal-body">
-            <div>Product Name<input type="text"></div>
-            <div>Quantity<input type="text"></div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-
-      </div>
+    <div>
+      <b-modal id="modal" title="Add Product">
+        <div>Product Name: <input type="text"></div>
+        <div>Quantity: <input type="number"></div>
+        <div>Images: <input type="file"></div>
+      </b-modal>
     </div>
   </div>
 </template>
 
 <script>
 import MerchantProduct from '../components/MerchantProduct'
+
 export default {
   components: { MerchantProduct },
   name: 'MerchantDashboard',
@@ -73,13 +62,18 @@ export default {
 <style>
 #merchantDashboard{
   border: 2px solid #323232;
-  width: fit-content;
   margin: 120px auto 0;
   padding: 10px;
-  color: #14ffe7;
 }
 button{
-  background-color: #323232;
   margin: 10px
+}
+#heading{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background: white;
+    border: none;
+    border-bottom: 1px solid grey;
 }
 </style>

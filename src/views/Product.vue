@@ -3,12 +3,29 @@
     <main class="container">
     <!-- Left Column / Headphones Image -->
       <div class="left-column">
-        <img data-image="black" src="https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg" alt="">
+        <!-- <img data-image="black" src="https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg" alt="">
         <img data-image="blue" src="https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg" alt="">
-        <img data-image="red" class="active" src="https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg" alt="">
+        <img data-image="red" class="active" src="https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg" alt=""> -->
+        <!-- <Slider /> -->
+        <b-carousel
+          id="carousel-1"
+          v-model="slide"
+          :interval="4000"
+          controls
+          indicators
+          background="#ababab"
+          img-width="1024"
+          img-height="480"
+          style="text-shadow: 1px 1px 2px #333;"
+          @sliding-start="onSlideStart"
+          @sliding-end="onSlideEnd"
+        >
+          <!-- Slides with image only -->
+          <b-carousel-slide v-for="image in product.images" :img-src="image" :key="image"></b-carousel-slide>
+        </b-carousel>
       </div>
       <!-- Right Column -->
-      <div class="right-column">
+      <div class="active right-column">
         <!-- Product Description -->
         <div class="product-description">
           <span>{{product.category}}</span>
@@ -55,6 +72,11 @@
             <button @click="increment" class="plus-btn" type="button" name="button">+</button>
           </div>
         </div>
+        <p>Sold by:
+          <select name="" id="">
+            <option v-for="merchant in product.merchantList" value="merchant" :key="merchant">{{merchant}}</option>
+          </select>
+        </p>
         <a href="#" class="cart-btn">Add to cart</a>
       </div>
     </main>
@@ -75,10 +97,18 @@ export default {
       category: 'headphones',
       description: 'adakjsd asfkja adakuw aw eaiuwbd aw awduibw dwadj ubib',
       price: 324,
-      image: 'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg',
+      merchantList: ['merchant 1', 'merchant 2', 'merchant 3', 'merchant 4'],
+      images: [
+        'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg',
+        'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg',
+        'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg',
+        'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg'
+      ],
       quantity: 1
     },
-    rating: []
+    rating: [],
+    slide: 0,
+    sliding: null
   }),
   beforeMount () {
     const data = [{
@@ -107,6 +137,12 @@ export default {
       return this.product.quantity
     },
     send () {
+    },
+    onSlideStart (slide) {
+      this.sliding = true
+    },
+    onSlideEnd (slide) {
+      this.sliding = false
     }
   }
 }
@@ -171,19 +207,7 @@ button[type="submit"]{
 .right-column {
   width: 35%;
 }
-.left-column img {
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-  transition: all 0.3s ease;
-}
-.left-column img.active {
-  opacity: 1;
-  height: 100%;
-  width: auto;
-}
+
 .product-description {
   border-bottom: 1px solid #E1E8EE;
   margin-bottom: 20px;
