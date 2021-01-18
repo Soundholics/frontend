@@ -77,13 +77,16 @@ export default {
       images: '../assets/audioplayer-temp.jpeg'
     }
     ]
-  })
-  // computed: {
-  //   url: function () {
-  //     const images = require.context('../assets/', false, /\.jpeg$/)
-  //     return images('./' + images + '.jpeg')
-  //   }
-  // }
+  }),
+  beforeMount () {
+    fetch('http://10.177.68.63:8082/product/getallproducts')
+      .then((res) => {
+        return res.json()
+      })
+      .then((res) => {
+        this.products = res
+      })
+  }
 }
 </script>
 <style>

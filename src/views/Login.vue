@@ -11,6 +11,7 @@
         <label for="pass"><strong>Password:</strong></label>
         <input type="password" placeholder="Password" name="pass" required v-model="pass">
         <hr>
+        <p v-if="this.incorrect">Incorrect Credentials</p>
         <router-link to="/register">Sign up?</router-link>
         <br>
         <input type="submit" placeholder="Submit" name="submit" id="blue" @click="authenticate">
@@ -27,11 +28,22 @@ export default {
   name: 'Login',
   data: () => ({
     uname: '',
-    pass: ''
+    pass: '',
+    incorrect: false
   }),
   methods: {
     authenticate () {
-      fetch('base_url', { method: 'POST', body: JSON.stringify(this.data) }).then(res => res.json()).then().catch(error => console.error('Error', error))
+      fetch('http://10.177.68.63:8082/customerUI/' + this.uname)
+        .then(res => res.json())
+        .then((res) => {
+          console.log(res)
+          if (res.password === this.pass) {
+            this.$router.push('/')
+          } else {
+            this.incorrect = true
+          }
+        })
+        .catch(error => console.error('Error', error))
     }
   }
 }

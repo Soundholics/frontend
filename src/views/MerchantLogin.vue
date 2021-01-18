@@ -11,6 +11,7 @@
       <label for="pass"><strong>Password:</strong></label>
       <input type="password" placeholder="Password" name="pass" required v-model="password">
       <hr>
+      <p v-if="incorrect" >Incorrect Credentials</p>
       <router-link to="/merchantregister">Not a User? Register</router-link>
       <br>
       <input type="submit" placeholder="Submit" name="submit" @click="login">
@@ -25,30 +26,21 @@ export default {
   name: 'MerchantLogin',
   data: () => ({
     username: '',
-    password: ''
+    password: '',
+    incorrect: false
   }),
   methods: {
     login () {
-      const data = {
-        username: this.username,
-        password: this.password
-      }
-      // fetch('merchant/getAuthentication', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify(data)
-      // })
-      //   .then((res) => {
-      //     res.json()
-      //   })
-      //   .then(() => {
-      //     console.log(1)
-      //     router.push('/merchantdashboard', onComplete?, onAbort?)
-      //   })
-      this.$router.push('/merchantdashboard')
-      console.log(data)
+      fetch('http://10.177.68.63:8082/merchant/' + this.username)
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res)
+          if (res.password === this.password) {
+            this.$router.push('/merchantdashboard')
+          } else {
+            this.incorrect = true
+          }
+        })
     }
   }
 }
