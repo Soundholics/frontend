@@ -21,7 +21,7 @@
           @sliding-end="onSlideEnd"
         >
           <!-- Slides with image only -->
-          <b-carousel-slide v-for="image in product.images" :img-src="image" :key="image"></b-carousel-slide>
+          <b-carousel-slide v-for="image in this.images" :img-src="image" :key="image"></b-carousel-slide>
         </b-carousel>
       </div>
       <!-- Right Column -->
@@ -52,29 +52,19 @@
               </div>
             </div>
           </div>
-          <!-- Cable Configuration -->
-          <!-- <div class="cable-config">
-          <span>Cable configuration</span>
-          <div class="cable-choose">
-          <button>Straight</button>
-          <button>Coiled</button>
-          <button>Long-coiled</button>
-          </div>
-          <a href="#">How to configurate your headphones</a>
-          </div> -->
         </div>
         <!-- Product Pricing -->
         <div class="product-price">
-          <span>${{product.price}}</span>
+          <span>${{merchantList[currentMerchant].price}}</span>
           <div class="quantity">
             <button @click="decrement" class="minus-btn" type="button" name="button">-</button>
-            <input type="text" name="name" :value="product.quantity">
+            <input type="text" name="name" :value="quantity">
             <button @click="increment" class="plus-btn" type="button" name="button">+</button>
           </div>
         </div>
         <p>Sold by:
-          <select name="" id="">
-            <option v-for="merchant in product.merchantList" value="merchant" :key="merchant">{{merchant}}</option>
+          <select name="" id="" v-model="currentMerchant">
+            <option v-for="(merchant, index) in merchantList" :value="index" :key="merchant.merchantId" >{{merchant.merchantId}}</option>
           </select>
         </p>
         <a href="#" class="cart-btn">Add to cart</a>
@@ -96,32 +86,46 @@ export default {
       name: 'headphone',
       category: 'headphones',
       description: 'adakjsd asfkja adakuw aw eaiuwbd aw awduibw dwadj ubib',
-      price: 324,
-      merchantList: ['merchant 1', 'merchant 2', 'merchant 3', 'merchant 4'],
-      images: [
-        'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg',
-        'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg',
-        'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg',
-        'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg'
-      ],
-      quantity: 1
+      price: 324
     },
     rating: [],
     slide: 0,
-    sliding: null
+    sliding: null,
+    currentMerchant: 0,
+    merchantList: ['merchant 1', 'merchant 2', 'merchant 3', 'merchant 4'],
+    quantity: 1,
+    images: [
+      // 'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg',
+      // 'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg',
+      // 'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg',
+      'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg'
+    ]
   }),
   beforeMount () {
-    const data = [{
-      id: 'cust1',
-      rate: 4.5,
-      review: 'It\'s good!'
-    },
-    {
-      id: 'cust2',
-      rate: 2.0,
-      review: 'Won\'t recommend.'
-    }]
-    this.rating = data
+    // const data = [{
+    //   id: 'cust1',
+    //   rate: 4.5,
+    //   review: 'It\'s good!'
+    // },
+    // {
+    //   id: 'cust2',
+    //   rate: 2.0,
+    //   review: 'Won\'t recommend.'
+    // }]
+    // this.rating = data
+    fetch('http://10.177.68.63:8082/product/getproduct/' + this.$route.params.id)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res)
+        this.product = res
+      })
+
+    fetch('http://10.177.68.63:8082/Inventory/findProduct/' + this.$route.params.id)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res)
+        this.merchantList = res
+      })
   },
   methods: {
     increment () {
