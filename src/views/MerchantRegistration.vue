@@ -5,16 +5,16 @@
     <h1>Create Seller Account</h1>
     <form id="login" v-on:submit.prevent>
         <label for="email"><strong>E-Mail:</strong></label>
-        <input type="email" placeholder="Email" name="email" required v-model="email">
+        <input type="email" placeholder="Email" name="email" required v-model="user.merchantId">
         <br>
         <label for="pass"><strong>Password:</strong></label>
-        <input type="password" placeholder="Password" name="pass" required v-model="password" minlength="8">
+        <input type="password" placeholder="Password" name="pass" required v-model="user.password" minlength="8">
         <br>
         <label for="name"><strong>Name:</strong></label>
-        <input type="text" placeholder="Name" name="name" required v-model="name">
+        <input type="text" placeholder="Name" name="name" required v-model="user.merchantName">
         <br>
         <label for="address"><strong>GST Number:</strong></label>
-        <input type="text" placeholder="GST Number" name="gst" required v-model="gstno">
+        <input type="text" placeholder="GST Number" name="gst" required v-model="user.gstPin">
         <br>
         <input type="submit" placeholder="Submit" name="submit" @click="register">
         <br>
@@ -26,19 +26,21 @@
 export default {
   name: 'MerchantRegistration',
   data: () => ({
-    name: '',
-    email: '',
-    password: '',
-    gstno: ''
+    user: {
+      merchantName: '',
+      merchantId: '',
+      password: '',
+      gstPin: ''
+    }
   }),
   methods: {
     register () {
-      const data = {
-        merchantName: this.name,
-        merchantId: this.email,
-        password: this.password,
-        gstPin: this.gstno
-      }
+      // const data = {
+      //   merchantName: this.name,
+      //   merchantId: this.email,
+      //   password: this.password,
+      //   gstPin: this.gstno
+      // }
       // fetch('merchant/save', {
       //   method: 'POST',
       //   headers: {
@@ -52,7 +54,17 @@ export default {
       //   .then(() => {
       //     console.log(1)
       //   })
-      console.log(data)
+      fetch('http://10.177.68.63:8082/merchant/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.user)
+      })
+        .then(res => res.json())
+        .then((res) => {
+          console.log(res)
+        })
     }
   }
 }

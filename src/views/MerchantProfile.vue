@@ -4,85 +4,46 @@
     <b-card no-body class="overflow-hidden mx-auto card" style="max-width: 540px">
       <b-row no-gutters>
       <b-col md="4">
-        <img :src="picture" alt="Admin" class="rounded-circle" width="150">
+        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
         <div class="mt-3">
-          <button class="btn btn-primary">My Orders</button>
+          <router-link to="/merchantorders"><button class="btn btn-primary">My Orders</button></router-link>
           <button class="btn btn-outline-primary" @click="toggleEdit">Edit</button>
           <button v-if="edit" class="btn btn-primary" @click="saveEdit">Save</button>
         </div>
       </b-col>
       <b-col md="8">
-                <label class="mb-0">Full Name:</label>
-                <div class="text-secondary">
-                  <span v-if="!edit">{{name}}</span>
-                  <input v-if="edit" type="text" name="name" id="name" v-model="name">
-                </div>
-                <hr>
           <b-card-text>
-                <label class="mb-0">Email</label>
-                <div class="text-secondary">
-                  <span v-if="!edit">{{email}}</span>
-                  <input v-if="edit" type="text" name="email" id="email" v-model="email">
-              </div>
+            <label class="mb-0">Email</label>
+              <div class="text-secondary">
+                <span >{{user.merchantId}}</span>
+            </div>
+          </b-card-text>
+          <hr>
+          <b-card-text>
+            <label class="mb-0">Full Name:</label>
+            <div class="text-secondary">
+              <span v-if="!edit">{{user.merchantName}}</span>
+              <input v-if="edit" type="text" name="name" id="name" v-model="user.merchantName">
+            </div>
           </b-card-text>
           <hr>
           <b-card-text>
                 <label class="mb-0">GST</label>
                 <div class="text-secondary">
-                  <span v-if="!edit">{{gst}}</span>
-                  <input v-if="edit" type="text" name="gst" id="gst" v-model="gst">
+                  <span v-if="!edit">{{user.gstPin}}</span>
+                  <input v-if="edit" type="text" name="gst" id="gst" v-model="user.gstPin">
+                </div>
+          </b-card-text>
+          <hr>
+          <b-card-text v-if="edit">
+                <label class="mb-0">Password</label>
+                <div class="text-secondary">
+                  <input type="password" name="password" id="password" v-model="user.password">
                 </div>
           </b-card-text>
       </b-col>
     </b-row>
   </b-card>
-    <!-- <div class="row gitters-sm card card-body">
-      <div class="d-flex flex-column align-items-center text-center">
-        <img :src="picture" alt="Admin" class="rounded-circle" width="150">
-        <div class="mt-3">
-          <router-link to="/merchantorders" class="style"><button class="btn btn-primary">My Orders</button></router-link>
-          <button class="btn btn-outline-primary" @click="toggleEdit">Edit</button>
-          <button v-if="edit" class="btn btn-primary" @click="saveEdit">Save</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-xl-8">
-      <div class="card">
-        <div class="mb-3">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-xl-3">
-                <label class="mb-0">Full Name:</label>
-                <div class="col-xl-9 text-secondary">
-                  <span v-if="!edit">{{name}}</span>
-                  <input v-if="edit" type="text" name="name" id="name" v-model="name">
-                </div>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-xl-3">
-                <label class="mb-0">Email:</label>
-                <div class="col-xl-9 text-secondary">
-                  <span v-if="!edit">{{email}}</span>
-                  <input v-if="edit" type="text" name="email" id="email" v-model="email">
-                </div>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-xl-3">
-                <label class="mb-0">GST Number:</label>
-                <div class="col-xl-9 text-secondary">
-                  <span v-if="!edit">{{gst}}</span>
-                  <input v-if="edit" type="text" name="gst" id="gst" v-model="gst">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -90,10 +51,12 @@
 export default {
   name: 'MerchantProfile',
   data: () => ({
-    picture: 'https://bootdey.com/img/Content/avatar/avatar7.png',
-    name: 'Merchant Name',
-    email: 'example@example.com',
-    gst: '21HGFSDYW2168127',
+    user: {
+      merchantName: '',
+      merchantId: '',
+      password: '',
+      gstPin: ''
+    },
     edit: false
   }),
   methods: {
@@ -102,23 +65,34 @@ export default {
       console.log(22)
     },
     saveEdit () {
-      const data = {
-        name: this.name,
-        email: this.email,
-        gst: this.gst
-      }
       // send edit details
-      console.log(data)
+      console.log(this.user)
+      fetch('http://10.177.68.63:8082/merchant/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.user)
+      })
+        .then(res => res.json())
+        .then((res) => {
+          console.log(res)
+        })
       this.toggleEdit()
     }
+  },
+  beforeMount () {
+    // fetch merchant details
+    fetch('http://10.177.68.63:8082/merchant/' + 'sarasrilakshmi@gmail.com')
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res)
+        this.user.merchantName = res.merchantName
+        this.user.merchantId = res.merchantId
+        this.user.password = res.password
+        this.user.gstPin = res.gstPin
+      })
   }
-  // beforeMount () {
-  //   // fetch merchant details
-  //   this.name = 'beforeMount'
-  //   this.email = 'beforeMountemail'
-  //   this.gst = 'beforeMountgst'
-  //   console.log(1)
-  // }
 }
 </script>
 

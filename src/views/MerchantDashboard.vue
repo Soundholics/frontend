@@ -30,31 +30,11 @@ export default {
     products: []
   }),
   beforeMount () {
-    const data = [
-      {
-        productName: 'product 1',
-        quantity: 3,
-        price: 341
-      },
-      {
-        productName: 'product 2',
-        quantity: 2,
-        price: 124
-      },
-      {
-        productName: 'product 3',
-        quantity: 4,
-        price: 342
-      }
-    ]
-    // fetch data
-    // fetch('/merchant/orders/ani')
-    //   .then((res)=>res.json())
-    //   .then(() => {
-    //     this.orders=res
-    //   })
-    console.log(1)
-    this.products = data
+    fetch('http://10.177.68.63:8082/Inventory/findProducts/' + 'anil@gmail.com')
+      .then((res) => res.json())
+      .then((res) => {
+        this.products = res
+      })
   }
 }
 </script>

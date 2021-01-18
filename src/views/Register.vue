@@ -5,10 +5,10 @@
     <h1>Create Account</h1>
     <form id="login" v-on:submit.prevent>
         <label for="email"><strong>E-Mail:</strong></label>
-        <input type="email" placeholder="Email" name="email" required v-model="user.email">
+        <input type="text" placeholder="Email" name="email" required v-model="user.email">
         <br>
         <label for="pass"><strong>Password:</strong></label>
-        <input type="password" placeholder="Password" name="pass" required v-model="user.pass" minlength="8">
+        <input type="password" placeholder="Password" name="pass" required v-model="user.password" minlength="8">
         <br>
         <label for="name"><strong>Name:</strong></label>
         <input type="text" placeholder="Name" name="name" required v-model="user.name">
@@ -17,7 +17,7 @@
         <input type="text" placeholder="Address" name="address" required v-model="user.address">
         <br>
         <label for="phone"><strong>Phone Number:</strong></label>
-        <input type="tel" placeholder="Phone No." name="phone" required v-model="user.phone">
+        <input type="text" placeholder="Phone No." name="phone" required v-model="user.phone">
         <hr>
         <input type="submit" placeholder="Submit" name="submit" @click="register">
         <br>
@@ -31,16 +31,25 @@ export default {
   data: () => ({
     user: {
       email: '',
-      pass: '',
+      password: '',
       name: '',
       address: '',
-      phone: 0
+      phone: ''
     }
   }),
   methods: {
     register: function () {
-    //   fetch('base_url', { method: 'POST', body: JSON.stringify(this.user) }).then(res => console.log(res)).catch(error => console.error('Error', error))
-      console.log(JSON.stringify(this.user))
+      fetch('http://10.177.68.63:8082/customerUI/createCustomer', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.user)
+      })
+        .then(res => res.json())
+        .then((res) => {
+          console.log(res)
+        })
     }
   }
 }

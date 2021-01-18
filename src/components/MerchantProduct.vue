@@ -1,6 +1,6 @@
 <template>
   <div class="product">
-    <p>{{product.productName}}</p>
+    <p>{{productName}}</p>
     <p>{{product.quantity}}</p>
     <button>Edit</button>
   </div>
@@ -9,7 +9,17 @@
 <script>
 export default {
   name: 'MerchantProduct',
-  props: ['product']
+  props: ['product'],
+  data: () => ({
+    productName: ''
+  }),
+  beforeMount () {
+    fetch('http://10.177.68.63:8082/product/getproduct/' + this.product.productId)
+      .then((res) => res.json())
+      .then((res) => {
+        this.productName = res.name
+      })
+  }
 }
 </script>
 
