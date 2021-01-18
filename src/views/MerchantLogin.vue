@@ -34,7 +34,7 @@ export default {
       fetch('http://10.177.68.63:8082/merchant/' + this.username)
         .then((res) => res.json())
         .then((res) => {
-          console.log(res)
+          this.$store.dispatch('fetchStatus', res)
           if (res.password === this.password) {
             this.$router.push('/merchantdashboard')
           } else {

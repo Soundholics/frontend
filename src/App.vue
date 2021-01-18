@@ -13,9 +13,12 @@
 
         <b-collapse id="nav-collapse" class="justify-content-end" is-nav> <!--style="max-width:17rem;"-->
           <b-navbar-nav class="ms-auto">
-            <b-nav-item to="/merchantlogin" class="style">Seller Login</b-nav-item>
-            <b-nav-item to="/login" class="style">Login</b-nav-item>
+            <b-nav-item to="/merchantlogin" class="style" v-if="!isLogin" @click="toggleMerchantProfile">Seller Login</b-nav-item>
+            <b-nav-item to="/login" class="style" v-if="!isLogin">Login</b-nav-item>
+            <b-nav-item to="/" class="style" v-if="isLogin" @click="logout">Logout</b-nav-item>
             <b-nav-item to="/cart" class="style"><b-icon icon="cart4" aria-hidden="true"></b-icon>Cart</b-nav-item>
+            <b-nav-item to="/profile" class="style" v-if="isLogin && isProfile">Profile</b-nav-item>
+            <b-nav-item to="/merchantprofile" class="style" v-if="isLogin && !isProfile">Profile</b-nav-item>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
@@ -32,7 +35,28 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data: () => ({
+    isLogin: false,
+    isCustomer: false,
+    isProfile: true
+  }),
+  updated () {
+    if (this.$store.getters.getLoginStatus) {
+      this.isLogin = true
+    } else {
+      this.isLogin = false
+    }
+  },
+  methods: {
+    logout () {
+      this.$store.dispatch('logoutStatus')
+      this.isLogin = false
+    },
+    toggleMerchantProfile () {
+      this.isProfile = false
+    }
+  }
 }
 </script>
 
