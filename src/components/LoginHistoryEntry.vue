@@ -1,7 +1,7 @@
 <template>
   <div class="order">
     <p>{{entry.date}}</p>
-    <p>{{entry.price}}</p>
+    <p>USD {{entry.price}}</p>
   </div>
 </template>
 
@@ -15,9 +15,10 @@ export default {
 <style>
 .order {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 20px;
-  background: white;
+  background: #323232;
+  color: #14ffec;
   border: none;
 }
 

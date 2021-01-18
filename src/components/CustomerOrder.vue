@@ -20,8 +20,8 @@ export default {
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  background: white;
-  border: none;
+  background: #323232;
+  border-bottom: 1px solid #0D7377;
 }
 
 img {

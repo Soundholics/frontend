@@ -23,7 +23,7 @@ export default {
   padding: 0 1% 1% 0;
   flex-basis: 24%;
   min-width: 200px;
-  background: white;
+  background: #323232;
   padding: 20px 0;
 
 }

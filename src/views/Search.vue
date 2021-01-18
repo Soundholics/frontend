@@ -95,8 +95,8 @@ export default {
       brand: ['JBL', 'SkullCandy', 'Sony', 'Bose', 'Sennheiser', 'Ubon', 'Boat', 'Samsung', 'Apple'],
       colors: ['Red', 'Black', 'Blue', 'Green', 'Cyan', 'Olive', 'Purple', 'Brown'],
       ergonomics: ['Wired', 'WireLess'],
-      category: ['headphones'],
-      rating: ['2 star and above'],
+      category: ['headphones', 'earphones', 'earbuds', 'audio players', 'speakers'],
+      rating: ['5 stars', '4 stars', '3 stars', '2 star and above'],
       stock: ['exclude out of stock']
     }
   })
@@ -105,11 +105,16 @@ export default {
 
 <style scoped>
 .search {
-  margin-top: 10%;
+  margin: 10% auto 2%;
+  color: #14ffec;
 }
 .product-filter {
   display: flex;
   justify-content: space-between;
+}
+label{
+  font-weight: bold;
+  text-align:left;
 }
 .product-filter h1 {
   padding-left: 2%;
@@ -132,17 +137,19 @@ export default {
 #results{
   display: flex;
   margin-top: 30px;
-  background: white;
+  background: #323232;
 }
 #filters{
   margin: 0 1%;
   min-width: 20%;
-  background: white;
+  background: #323232;
   /* max-height: 600px; */
   border-right: lightgray 1px solid;
   text-align: left;
 }
-
+input[type="checkbox"]{
+  margin-right: 5px;
+}
 ul {
   list-style: none;
   padding-left: 0;

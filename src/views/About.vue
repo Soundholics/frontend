@@ -25,11 +25,14 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .about{
   margin: 100px auto 0;
   background-color: #323232;
   color: #14ffec;
+  width: fit-content;
+  padding: 10px;
+  box-shadow: 3px 6px #121212;
 }
 hr{
   border-bottom: 1px solid #121212;

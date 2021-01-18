@@ -6,7 +6,8 @@
     </div>
     <div id="spacer"></div>
     <div class="summary">
-      <p>Address: <span>{{address}}</span></p>
+      <label for="address">Address:</label>
+      <p>Bangalore, Karnataka</p>
       <!-- <div>
         <label for="cars">Select payment method:</label>
         <select name="cars" id="cars">
@@ -72,14 +73,18 @@ export default {
 
 <style scoped>
 .shopping-cart {
-  background: #FFFFFF;
+  background: #323232;
   box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
   border-radius: 6px;
   display: flex;
   flex-direction: column;
   flex-grow: 3;
+  color: #14ffec;
+  margin-bottom: 60px;
 }
-
+label{
+  font-weight: bold;
+}
 #ordersummary{
   width: 80%;
   display: flex;
@@ -92,7 +97,9 @@ export default {
   max-width: 50px;
 }
 .summary {
-  background: #FFFFFF;
+  background: #323232;
+  height: fit-content;
+  color: #14ffec;
   flex-grow: 2;
   align-content: center;
   justify-content: center;
@@ -100,6 +107,15 @@ export default {
 #checkout {
   width: 100%;
   border: none;
-  padding: 20px
+  background-color: #121212;
+  color: #14ffec;
+}
+#checkout:hover{
+  background-color: #14ffec;
+  color: #121212;
+}
+h1{
+  border-bottom: 2px solid white !important;
+  padding-bottom: 18px;
 }
 </style>

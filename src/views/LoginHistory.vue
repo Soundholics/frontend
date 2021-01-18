@@ -1,11 +1,13 @@
 <template>
   <div id="orders">
     <h1>Login Activity</h1>
+        <div id="table">
     <div id="heading">
       <p>Date</p>
-      <p>Time</p>
+      <p>Total Price</p>
     </div>
     <LoginHistoryEntry v-for="entry in history" :key="entry.name" :entry="entry" />
+    </div>
   </div>
 </template>
 
@@ -47,13 +49,18 @@ export default {
 
 <style scoped>
 #orders{
-  margin-top: 10%;
+  margin: 10% 30%;
+  color: #14ffec;
+}
+#table{
+  box-shadow: 3px 6px #121212;
 }
 #heading{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    font-weight: bold;
     padding: 20px;
-    background: white;
+    background: #323232;
     border: none;
     border-bottom: 1px solid grey;
 }
