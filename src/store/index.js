@@ -30,14 +30,40 @@ export default new Vuex.Store({
     },
     getLoginStatus: state => {
       return state.isLogin
+    },
+    getName: state => {
+      return state.user.name
+    },
+    getPhone: state => {
+      return state.user.phone
+    },
+    getEmail: state => {
+      return state.user.email
+    },
+    getAddress: state => {
+      return state.user.address
+    },
+    getGSTPin: state => {
+      return state.user.gstPin
+    },
+    getmerchantName: state => {
+      return state.user.merchantName
+    },
+    getmerchantEmail: state => {
+      return state.user.merchantId
+    },
+    getPassword: state => {
+      return state.user.password
     }
   },
   actions: {
     fetchStatus (context, user) {
       if (user) {
         context.commit('AUTH_SUCCESS', user)
+        console.log('in success')
       } else {
         context.commit('AUTH_ERROR')
+        console.log('in error')
       }
     },
     logoutStatus (context) {

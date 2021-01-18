@@ -76,22 +76,17 @@ export default {
       })
         .then(res => res.json())
         .then((res) => {
-          console.log(res)
+          this.$store.dispatch('fetchStatus', res)
         })
       this.toggleEdit()
     }
   },
   beforeMount () {
     // fetch merchant details
-    fetch('http://10.177.68.63:8082/merchant/' + 'sarasrilakshmi@gmail.com')
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res)
-        this.user.merchantName = res.merchantName
-        this.user.merchantId = res.merchantId
-        this.user.password = res.password
-        this.user.gstPin = res.gstPin
-      })
+    this.user.merchantName = this.$store.getters.getmerchantName
+    this.user.merchantId = this.$store.getters.getmerchantEmail
+    this.user.gstPin = this.$store.getters.getGSTPin
+    this.user.password = this.$store.getters.getPassword
   }
 }
 </script>

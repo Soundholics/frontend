@@ -4,7 +4,7 @@
     <b-card no-body class="overflow-hidden mx-auto card" style="max-width: 540px">
       <b-row no-gutters>
       <b-col md="4">
-        <img :src="picture" alt="Admin" class="rounded-circle" width="150">
+        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
         <div class="mt-3">
           <button class="btn btn-primary">My Orders</button>
           <button class="btn btn-outline-primary" @click="toggleEdit">Edit</button>
@@ -14,93 +14,43 @@
       <b-col md="8">
                 <label class="mb-0">Full Name:</label>
                 <div class="text-secondary">
-                  <span v-if="!edit">{{name}}</span>
-                  <input v-if="edit" type="text" name="name" id="name" v-model="name">
+                  <span v-if="!edit">{{user.name}}</span>
+                  <input v-if="edit" type="text" name="name" id="name" v-model="user.name">
                 </div>
                 <hr>
           <b-card-text>
                 <label class="mb-0">Email</label>
                 <div class="text-secondary">
-                  <span v-if="!edit">{{email}}</span>
-                  <input v-if="edit" type="text" name="email" id="email" v-model="email">
+                  <span v-if="!edit">{{user.email}}</span>
+                  <input v-if="edit" type="text" name="email" id="email" v-model="user.email">
               </div>
           </b-card-text>
           <hr>
           <b-card-text>
                 <label class="mb-0">Phone</label>
                 <div class="text-secondary">
-                  <span v-if="!edit">{{phone}}</span>
-                  <input v-if="edit" type="text" name="phone" id="phone" v-model="phone">
+                  <span v-if="!edit">{{user.phone}}</span>
+                  <input v-if="edit" type="text" name="phone" id="phone" v-model="user.phone">
                 </div>
           </b-card-text>
           <hr>
           <b-card-text>
                 <label class="mb-0">Address</label>
                 <div class="text-secondary">
-                  <span v-if="!edit">{{address}}</span>
-                  <input v-if="edit" type="text" name="address" id="address" v-model="address">
+                  <span v-if="!edit">{{user.address}}</span>
+                  <input v-if="edit" type="text" name="address" id="address" v-model="user.address">
+                </div>
+          </b-card-text>
+          <hr>
+          <b-card-text v-if="edit">
+                <label class="mb-0">Password</label>
+                <div class="text-secondary">
+                  <input type="password" name="password" id="password" v-model="user.password">
                 </div>
           </b-card-text>
       </b-col>
     </b-row>
   </b-card>
-    <!-- <div class="row gitters-sm card card-body">
-      <div class="d-flex flex-column align-items-center text-center">
-        <img :src="picture" alt="Admin" class="rounded-circle" width="150">
-        <div class="mt-3">
-          <button class="btn btn-primary">My Orders</button>
-          <button class="btn btn-outline-primary" @click="toggleEdit">Edit</button>
-          <button v-if="edit" class="btn btn-outline-primary" @click="saveEdit">Save</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-xl-8">
-      <div class="card">
-        <div class="mb-3">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-xl-3">
-                <h6 class="mb-0">Full Name</h6>
-                <div class="col-xl-9 text-secondary">
-                  <span v-if="!edit">{{name}}</span>
-                  <input v-if="edit" type="text" name="name" id="name" v-model="name">
-                </div>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-xl-3">
-                <h6 class="mb-0">Email</h6>
-                <div class="col-xl-9 text-secondary">
-                  <span v-if="!edit">{{email}}</span>
-                  <input v-if="edit" type="text" name="email" id="email" v-model="email">
-                </div>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-xl-3">
-                <h6 class="mb-0">Phone</h6>
-                <div class="col-xl-9 text-secondary">
-                  <span v-if="!edit">{{phone}}</span>
-                  <input v-if="edit" type="text" name="phone" id="phone" v-model="phone">
-                </div>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-xl-3">
-                <h6 class="mb-0">Address</h6>
-                <div class="col-xl-9 text-secondary">
-                  <span v-if="!edit">{{address}}</span>
-                  <input v-if="edit" type="text" name="address" id="address" v-model="address">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -108,31 +58,47 @@
 export default {
   name: 'Profile',
   data: () => ({
-    picture: 'https://bootdey.com/img/Content/avatar/avatar7.png',
-    email: '',
-    name: 'Sound Holics',
-    address: '',
-    phone: 0,
+    user: {
+      email: '',
+      password: '',
+      name: '',
+      address: '',
+      phone: ''
+    },
     edit: false
   }),
   methods: {
-    authenticate () {
-      fetch('base_url', { method: 'POST', body: JSON.stringify.data }).then(res => res.json()).then().catch(error => console.error('Error', error))
-    },
     toggleEdit () {
       this.edit = !this.edit
     },
     saveEdit () {
-      const data = {
-        name: this.name,
-        email: this.email,
-        address: this.address,
-        phone: this.phone
-      }
       // send edit details
-      console.log(data)
+      console.log(this.user)
+      fetch(('http://10.177.68.63:8082/customerUI/createCustomer'), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.user)
+      })
+        .then((res) => {
+          const resp = res.json()
+          return resp
+        })
+        .then((res) => {
+          console.log(res)
+          this.$store.dispatch('fetchStatus', res)
+        })
       this.toggleEdit()
     }
+  },
+  beforeMount () {
+    console.log(this.user)
+    this.user.email = this.$store.getters.getEmail
+    this.user.name = this.$store.state.user.name
+    this.user.address = this.$store.getters.getAddress
+    this.user.phone = this.$store.getters.getPhone
+    this.user.password = this.$store.getters.getPassword
   }
 }
 </script>
