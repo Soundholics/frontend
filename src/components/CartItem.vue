@@ -5,11 +5,11 @@
     </div>
 
     <div class="description">
-      <span>{{cartItem.productName}}</span>
+      <span>{{this.name}}</span>
       <!-- <span>Bball High</span>
       <span>White</span> -->
     </div>
-    <div class="total-price">${{cartItem.productPrice}}</div>
+    <div class="total-price">${{this.price}}</div>
     <div class="quantity">
       <!-- <button class="minus-btn" type="button" name="button">
         -
@@ -18,9 +18,9 @@
       <button class="plus-btn" type="button" name="button">
         +
       </button> -->
-      <b-form-spinbutton id="demo-sb" v-model="cartItem.productQuantity" min="1" max="100"></b-form-spinbutton>
+      <b-form-spinbutton id="demo-sb" @change="updateCartStore" v-model="cartItem.quantity" min="1" max="100"></b-form-spinbutton>
     </div>
-    <div class="total-price">${{cartItem.productPrice * cartItem.productQuantity}}</div>
+    <div class="total-price">${{this.price * cartItem.quantity}}</div>
 
     <div class="buttons">
       <button><b-icon-trash></b-icon-trash></button>
@@ -30,9 +30,49 @@
 </template>
 
 <script>
+
 export default {
   name: 'CartItem',
-  props: ['cartItem']
+  props: ['cartItem', 'cartSave'],
+  data: () => ({
+    name: '',
+    price: ''
+  }),
+  methods: {
+    updateCartStore () {
+      for (const i in this.cartSave) {
+        if (i.id === this.cartItem.productId) {
+          i.quantity = this.cartItem.quantity
+        }
+      }
+      const result = { customerEmail: this.$store.getters.getEmail, productEntities: this.cartSave }
+      console.log(result)
+      fetch('http://10.177.68.63:8082/order/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(result)
+      })
+        .then(res => {
+          console.log(res)
+        })
+    }
+  },
+  mounted () {
+    fetch('http://10.177.68.63:8082/product/getproduct/' + this.cartItem.productId)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res)
+        this.name = res.name
+      })
+    fetch('http://10.177.68.63:8082/Inventory/findSpecificPrice/' + this.cartItem.productId + '/' + this.cartItem.merchantId)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res)
+        this.price = res
+      })
+  }
 }
 </script>
 

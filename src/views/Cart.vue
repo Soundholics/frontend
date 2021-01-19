@@ -2,15 +2,14 @@
   <div id="cartpage">
     <div class="shopping-cart">
       <h1>Your Cart</h1>
-      <CartItem v-for="cartItem in products" :key="cartItem.productName" :cartItem="cartItem" />
-      {{this.$store.state.product[0].productName}}
+      <CartItem v-for="cartItem in products" :key="cartItem.productName" :cartItem="cartItem" :cartSave="products"/>
     </div>
     <div id="spacer"></div>
     <div class="summary">
       <label for="address">Address:</label>
       <p>Bangalore, Karnataka</p>
       <label for="total">Subtotal:</label>
-      <p><span>{{subtotal}}</span></p>
+      <!-- <p><span>{{subtotal}}</span></p> -->
       <!-- <div>
         <label for="cars">Select payment method:</label>
         <select name="cars" id="cars">
@@ -31,82 +30,78 @@ export default {
   components: { CartItem },
   name: 'Cart',
   data: () => ({
-    products: []
+    products: [],
+    productId: '',
+    merchantId: '',
+    order: {}
   }),
   computed: {
     subtotal: function () {
       let sum = 0
       this.products.forEach((element) => {
-        sum += (element.productPrice * element.productQuantity)
+        sum += (element.productPrice * element.quantity)
       })
       return sum
     }
   },
-  created () {
-    // const data = []
-    // const customerEmail = this.$store.getters.getEmail
-    // fetch('http://10.177.68.63:8082/order/getCart/' + customerEmail)
-    //   .then((res) => res.json())
-    //   .then((res) => {
-    //     console.log(res)
-    //     res.productEntities.forEach((element) => {
-    //       console.log(element)
-    //       const temp = {}
-    //       fetch('http://10.177.68.63:8082/product/getproduct/' + element.productId)
-    //         .then((res) => res.json())
-    //         .then((res) => {
-    //           console.log(res)
-    //           temp.productName = res.name
-    //         })
-    //       fetch('http://10.177.68.63:8082/Inventory/findSpecificPrice/' + element.productId + '/' + element.merchantId)
-    //         .then((res) => res.json())
-    //         .then((res) => {
-    //           console.log(res)
-    //           temp.productPrice = res
-    //         })
-    //       temp.productQuantity = element.quantity
-    //       data.push(temp)
-    //       console.log(data)
-    //     })
-    //     console.log(res)
-    //   })
-    // this.product = data
-    // console.log(this.cartItems)
+  mounted () {
     const data = []
     fetch('http://10.177.68.63:8082/order/getCart/' + this.$store.getters.getEmail)
       .then((res) => res.json())
       .then((res) => {
-        console.log(res)
+        this.$store.dispatch('fetchProduct', res)
+        console.log('firsr Result', this.$store.state.product)
         res.productEntities.forEach((element) => {
           const temp = {}
-          console.log(element)
-          fetch('http://10.177.68.63:8082/product/getproduct/' + element.productId)
-            .then((res) => res.json())
-            .then((res) => {
-              console.log(res)
-              temp.productName = res.name
-            })
-          fetch('http://10.177.68.63:8082/Inventory/findSpecificPrice//' + element.productId + '/' + element.merchantId)
-            .then((res) => res.json())
-            .then((res) => {
-              console.log(res)
-              temp.productPrice = res
-            })
-          temp.productQuantity = element.quantity
+          // console.log(element)
+          temp.productId = element.productId
+          temp.merchantId = element.merchantId
+          temp.quantity = element.quantity
           data.push(temp)
         })
+        this.products = data
+        console.log('data inside fetch vue', this.products)
       })
-    this.$store.dispatch('fetchProduct', data)
-    console.log(this.$store.state.product)
-    this.products = data
-  },
-  watch: {
+    // console.log(this.$store.state.product)
+    // console.log('data outside vue', this.products)
+    // this.products = data
   },
   methods: {
     checkout () {
       // send order details
+      this.order.date = new Date()
+      this.order.address = this.$store.getters.getAddress
+      this.order.productEntities = this.products
+      this.order.customerEmail = this.$store.getters.getEmail
+      this.order.totalPrice = 0
+      this.order.productEntities.forEach((element) => {
+        fetch('http://10.177.68.63:8082/Inventory/findSpecificPrice/' + element.productId + '/' + element.merchantId)
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res)
+            this.order.totalPrice += res
+            console.log(this.order.totalPrice)
+          })
+      })
+      console.log(this.order.totalPrice)
+      fetch('http://10.177.68.63:8082/order/altsave', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.order)
+      })
+        .then((res) => res.json())
+        .then(res => {
+          console.log(res)
+          fetch('http://10.177.68.63:8082/order/sendMail/' + res._id)
+            .then((res) => res.json())
+            .then((res) => {
+              console.log(res)
+            })
+        })
       // redirect to order summary
-      console.log('done')
+      // console.log('done')
     }
   }
 }

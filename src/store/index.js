@@ -8,7 +8,7 @@ export default new Vuex.Store({
     status: '',
     isLogin: false,
     user: {},
-    product: {}
+    product: []
   },
   mutations: {
     AUTH_SUCCESS (state, user) {
