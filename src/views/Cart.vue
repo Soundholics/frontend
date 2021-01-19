@@ -2,7 +2,8 @@
   <div id="cartpage">
     <div class="shopping-cart">
       <h1>Your Cart</h1>
-      <CartItem v-for="cartItem in cartItems" :key="cartItem.productName" :cartItem="cartItem" />
+      <CartItem v-for="cartItem in products" :key="cartItem.productName" :cartItem="cartItem" />
+      {{this.$store.state.product[0].productName}}
     </div>
     <div id="spacer"></div>
     <div class="summary">
@@ -30,37 +31,76 @@ export default {
   components: { CartItem },
   name: 'Cart',
   data: () => ({
-    cartItems: [
-      {
-        productName: 'product 1',
-        productPrice: 400,
-        productQuanity: 2
-      },
-      {
-        productName: 'product 2',
-        productPrice: 250,
-        productQuanity: 6
-      },
-      {
-        productName: 'product 3',
-        productPrice: 390,
-        productQuanity: 1
-      },
-      {
-        productName: 'product 4',
-        productPrice: 450,
-        productQuanity: 7
-      }
-    ]
+    products: []
   }),
   computed: {
     subtotal: function () {
       let sum = 0
-      this.cartItems.forEach((element) => {
-        sum += (element.productPrice * element.productQuanity)
+      this.products.forEach((element) => {
+        sum += (element.productPrice * element.productQuantity)
       })
       return sum
     }
+  },
+  created () {
+    // const data = []
+    // const customerEmail = this.$store.getters.getEmail
+    // fetch('http://10.177.68.63:8082/order/getCart/' + customerEmail)
+    //   .then((res) => res.json())
+    //   .then((res) => {
+    //     console.log(res)
+    //     res.productEntities.forEach((element) => {
+    //       console.log(element)
+    //       const temp = {}
+    //       fetch('http://10.177.68.63:8082/product/getproduct/' + element.productId)
+    //         .then((res) => res.json())
+    //         .then((res) => {
+    //           console.log(res)
+    //           temp.productName = res.name
+    //         })
+    //       fetch('http://10.177.68.63:8082/Inventory/findSpecificPrice/' + element.productId + '/' + element.merchantId)
+    //         .then((res) => res.json())
+    //         .then((res) => {
+    //           console.log(res)
+    //           temp.productPrice = res
+    //         })
+    //       temp.productQuantity = element.quantity
+    //       data.push(temp)
+    //       console.log(data)
+    //     })
+    //     console.log(res)
+    //   })
+    // this.product = data
+    // console.log(this.cartItems)
+    const data = []
+    fetch('http://10.177.68.63:8082/order/getCart/' + this.$store.getters.getEmail)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res)
+        res.productEntities.forEach((element) => {
+          const temp = {}
+          console.log(element)
+          fetch('http://10.177.68.63:8082/product/getproduct/' + element.productId)
+            .then((res) => res.json())
+            .then((res) => {
+              console.log(res)
+              temp.productName = res.name
+            })
+          fetch('http://10.177.68.63:8082/Inventory/findSpecificPrice//' + element.productId + '/' + element.merchantId)
+            .then((res) => res.json())
+            .then((res) => {
+              console.log(res)
+              temp.productPrice = res
+            })
+          temp.productQuantity = element.quantity
+          data.push(temp)
+        })
+      })
+    this.$store.dispatch('fetchProduct', data)
+    console.log(this.$store.state.product)
+    this.products = data
+  },
+  watch: {
   },
   methods: {
     checkout () {

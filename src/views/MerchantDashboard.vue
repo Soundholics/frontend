@@ -10,7 +10,7 @@
       <p>Product Quantity</p>
     </div>
     <MerchantProduct v-for="product in products" :key="product.productName" :product="product"/>
-    <div>
+    <div id="modals">
       <b-modal id="modal" title="Add Product">
         <div><label>Product Name:</label>
           <select v-if="!addNewProduct" v-model="product.name" >
@@ -37,9 +37,9 @@
                         <select v-model="rating" text="Rating">
               <option v-for="entry in ratingList" :key="entry">{{entry}}</option>
             </select>
-        </div>
         <div>Images:<input type="file"></div>
         <button @click="addProduct">Submit</button>
+        </div>
       </b-modal>
     </div>
   </div>
@@ -157,7 +157,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #merchantDashboard{
   border: 2px solid #323232;
   margin: 120px auto 0;
@@ -170,12 +170,17 @@ button{
     display: flex;
     justify-content: space-between;
     padding: 20px;
-    background: white;
+    background: #323232;
+    color: #14ffec;
     border: none;
     border-bottom: 1px solid grey;
 }
-select{
+select, input{
   width: 100%;
+  height: 30px;
+  margin: 7px;
+  border: 1px solid #323232;
+  box-shadow: 1px 2px #121212;
 }
 button.dropdown-toggle{
 width: 100%;

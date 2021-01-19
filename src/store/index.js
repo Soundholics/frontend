@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     status: '',
     isLogin: false,
-    user: {}
+    user: {},
+    product: {}
   },
   mutations: {
     AUTH_SUCCESS (state, user) {
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     LOGOUT (state) {
       state.status = ''
       state.isLogin = false
+    },
+    PRODUCT (state, product) {
+      state.product = product
     }
   },
   getters: {
@@ -53,6 +57,15 @@ export default new Vuex.Store({
     },
     getPassword: state => {
       return state.user.password
+    },
+    getPName: state => {
+      return state.product.productName
+    },
+    getPPrice: state => {
+      return state.product.productPrice
+    },
+    getPQuantity: state => {
+      return state.product.productQuantity
     }
   },
   actions: {
@@ -67,6 +80,9 @@ export default new Vuex.Store({
     },
     logoutStatus (context) {
       context.commit('LOGOUT')
+    },
+    fetchProduct (context, product) {
+      context.commit('PRODUCT', product)
     }
   },
   modules: {

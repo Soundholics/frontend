@@ -18,9 +18,9 @@
       <button class="plus-btn" type="button" name="button">
         +
       </button> -->
-      <b-form-spinbutton id="demo-sb" v-model="cartItem.productQuanity" min="1" max="100"></b-form-spinbutton>
+      <b-form-spinbutton id="demo-sb" v-model="cartItem.productQuantity" min="1" max="100"></b-form-spinbutton>
     </div>
-    <div class="total-price">${{cartItem.productPrice * cartItem.productQuanity}}</div>
+    <div class="total-price">${{cartItem.productPrice * cartItem.productQuantity}}</div>
 
     <div class="buttons">
       <button><b-icon-trash></b-icon-trash></button>
@@ -36,7 +36,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .item {
   padding: 20px 30px;
   height: 120px;
