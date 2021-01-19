@@ -2,14 +2,14 @@
   <div id="cartpage">
     <div class="shopping-cart">
       <h1>Your Cart</h1>
-      <CartItem v-for="cartItem in cartItems" :key="cartItem.productName" :cartItem="cartItem" />
+      <CartItem v-for="cartItem in products" :key="cartItem.productName" :cartItem="cartItem" :cartSave="products"/>
     </div>
     <div id="spacer"></div>
     <div class="summary">
       <label for="address">Address:</label>
       <p>Bangalore, Karnataka</p>
       <label for="total">Subtotal:</label>
-      <p><span>{{subtotal}}</span></p>
+      <!-- <p><span>{{subtotal}}</span></p> -->
       <!-- <div>
         <label for="cars">Select payment method:</label>
         <select name="cars" id="cars">
@@ -30,43 +30,78 @@ export default {
   components: { CartItem },
   name: 'Cart',
   data: () => ({
-    cartItems: [
-      {
-        productName: 'product 1',
-        productPrice: 400,
-        productQuanity: 2
-      },
-      {
-        productName: 'product 2',
-        productPrice: 250,
-        productQuanity: 6
-      },
-      {
-        productName: 'product 3',
-        productPrice: 390,
-        productQuanity: 1
-      },
-      {
-        productName: 'product 4',
-        productPrice: 450,
-        productQuanity: 7
-      }
-    ]
+    products: [],
+    productId: '',
+    merchantId: '',
+    order: {}
   }),
   computed: {
     subtotal: function () {
       let sum = 0
-      this.cartItems.forEach((element) => {
-        sum += (element.productPrice * element.productQuanity)
+      this.products.forEach((element) => {
+        sum += (element.productPrice * element.quantity)
       })
       return sum
     }
   },
+  mounted () {
+    const data = []
+    fetch('http://10.177.68.63:8082/order/getCart/' + this.$store.getters.getEmail)
+      .then((res) => res.json())
+      .then((res) => {
+        this.$store.dispatch('fetchProduct', res)
+        console.log('firsr Result', this.$store.state.product)
+        res.productEntities.forEach((element) => {
+          const temp = {}
+          // console.log(element)
+          temp.productId = element.productId
+          temp.merchantId = element.merchantId
+          temp.quantity = element.quantity
+          data.push(temp)
+        })
+        this.products = data
+        console.log('data inside fetch vue', this.products)
+      })
+    // console.log(this.$store.state.product)
+    // console.log('data outside vue', this.products)
+    // this.products = data
+  },
   methods: {
     checkout () {
       // send order details
+      this.order.date = new Date()
+      this.order.address = this.$store.getters.getAddress
+      this.order.productEntities = this.products
+      this.order.customerEmail = this.$store.getters.getEmail
+      this.order.totalPrice = 0
+      this.order.productEntities.forEach((element) => {
+        fetch('http://10.177.68.63:8082/Inventory/findSpecificPrice/' + element.productId + '/' + element.merchantId)
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res)
+            this.order.totalPrice += res
+            console.log(this.order.totalPrice)
+          })
+      })
+      console.log(this.order.totalPrice)
+      fetch('http://10.177.68.63:8082/order/altsave', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.order)
+      })
+        .then((res) => res.json())
+        .then(res => {
+          console.log(res)
+          fetch('http://10.177.68.63:8082/order/sendMail/' + res._id)
+            .then((res) => res.json())
+            .then((res) => {
+              console.log(res)
+            })
+        })
       // redirect to order summary
-      console.log('done')
+      // console.log('done')
     }
   }
 }

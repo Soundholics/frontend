@@ -36,7 +36,7 @@
         <div class="product-configuration">
           <!-- Product Color -->
           <div class="product-color">
-            <span>Color</span>
+            <label>Color:</label>
             <div class="color-choose">
               <div>
                 <input data-image="red" type="radio" id="red" name="color" value="red" checked>
@@ -54,20 +54,25 @@
           </div>
         </div>
         <!-- Product Pricing -->
+        {{this.cart.customerEmail}}
+        {{this.cart.products.productId}}
         <div class="product-price">
-          <span>${{merchantList[currentMerchant].price}}</span>
-          <div class="quantity">
-            <button @click="decrement" class="minus-btn" type="button" name="button">-</button>
-            <input type="text" name="name" :value="quantity">
-            <button @click="increment" class="plus-btn" type="button" name="button">+</button>
-          </div>
+          <span>${{merchantList[currentMerchant].price*quantity}}</span>
         </div>
+        <br>
+          <div class="quantity">
+            <label>Quantity: </label>
+            <b-form-spinbutton ide="demo-sb" v-model="quantity" min="1" max="100" inline></b-form-spinbutton>
+          </div>
+          {{this.quantity}}
+          <br>
         <p>Sold by:
           <select name="" id="" v-model="currentMerchant">
             <option v-for="(merchant, index) in merchantList" :value="index" :key="merchant.merchantId" >{{merchant.merchantId}}</option>
           </select>
         </p>
-        <a href="#" class="cart-btn">Add to cart</a>
+        {{this.merchantList[currentMerchant].merchantId}}
+        <a href="#" class="cart-btn" @click="cartSave">Add to cart</a>
       </div>
     </main>
     <Comment v-for="rat in rating" :key=rat.id :rating=rat />
@@ -81,13 +86,7 @@ export default {
   name: 'Product',
   components: { Comment },
   data: () => ({
-    product: {
-      id: 'prod1',
-      name: 'headphone',
-      category: 'headphones',
-      description: 'adakjsd asfkja adakuw aw eaiuwbd aw awduibw dwadj ubib',
-      price: 324
-    },
+    product: {},
     rating: [],
     slide: 0,
     sliding: null,
@@ -99,7 +98,15 @@ export default {
       // 'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg',
       // 'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg',
       'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg'
-    ]
+    ],
+    cart: {
+      products: {
+        productId: '',
+        quantity: '',
+        merchantId: ''
+      },
+      customerEmail: ''
+    }
   }),
   beforeMount () {
     // const data = [{
@@ -118,6 +125,7 @@ export default {
       .then((res) => {
         console.log(res)
         this.product = res
+        this.cart.products.productId = res.productId
       })
 
     fetch('http://10.177.68.63:8082/Inventory/findProduct/' + this.$route.params.id)
@@ -126,20 +134,10 @@ export default {
         console.log(res)
         this.merchantList = res
       })
+    this.cart.customerEmail = this.$store.getters.getEmail
+    this.cart.products.productId = this.product.productId
   },
   methods: {
-    increment () {
-      this.product.quantity++
-      //   console.log(this.product.quantity)
-      return this.product.quantity
-    },
-    decrement () {
-      if (this.product.quantity !== 1) {
-        this.product.quantity--
-      }
-      //   console.log(this.product.quantity)
-      return this.product.quantity
-    },
     send () {
     },
     onSlideStart (slide) {
@@ -147,6 +145,38 @@ export default {
     },
     onSlideEnd (slide) {
       this.sliding = false
+    },
+    cartSave () {
+      this.cart.products.quantity = this.quantity
+      this.cart.products.merchantId = this.merchantList[this.currentMerchant].merchantId
+      fetch('http://10.177.68.63:8082/order/getCart/' + this.cart.customerEmail)
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res)
+          fetch('http://10.177.68.63:8082/order/updateCart/' + this.cart.customerEmail, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.cart.products)
+          })
+            .then((res) => {
+              console.log(res)
+            })
+        })
+        .catch(e => {
+          fetch('http://10.177.68.63:8082/order/cart', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.cart)
+          })
+            .then((res) => res.json())
+            .then((res) => {
+              console.log(res)
+            })
+        })
     }
   }
 }
@@ -166,11 +196,17 @@ export default {
 /* img{
     width: 300px;
     display: inline-block;
+}*/
+.quantity{
+  display: flex;
+  justify-content: center;
 }
-label[for], input{
+label, p{
     margin: 10px;
+    color: #14ffec;
+    font-weight: bold;
 }
-#blue, button{
+/*#blue, button{
   background-color: #323232;
   color: #14ffec;
   border: none;
@@ -219,21 +255,22 @@ button[type="submit"]{
 }
 .product-description span {
   font-size: 12px;
-  color: #358ED7;
+  color: #323232;
   letter-spacing: 1px;
   text-transform: uppercase;
   text-decoration: none;
+  font-weight: bold;
 }
 .product-description h1 {
   font-weight: 300;
   font-size: 52px;
-  color: #43484D;
+  color: #14ffec;
   letter-spacing: -2px;
 }
 .product-description p {
   font-size: 16px;
   font-weight: 300;
-  color: #86939E;
+  color: #14ffec;
   line-height: 24px;
 }
 .product-color {
@@ -280,7 +317,7 @@ button[type="submit"]{
   border-radius: 6px;
   padding: 13px 20px;
   font-size: 14px;
-  color: #5E6977;
+  color: #14ffec;
   background-color: #fff;
   cursor: pointer;
   transition: all .5s;
@@ -322,22 +359,23 @@ button[type="submit"]{
 .product-price span {
   font-size: 26px;
   font-weight: 300;
-  color: #43474D;
+  color: #14ffec;
   margin-right: 20px;
 }
 .cart-btn {
   display: inline-block;
-  background-color: #7DC855;
+  background-color: #323232;
   border-radius: 6px;
   font-size: 16px;
-  color: #FFFFFF;
+  color: #14ffec;
   text-decoration: none;
   padding: 12px 30px;
   transition: all .5s;
   margin-left: 10px;
 }
 .cart-btn:hover {
-  background-color: #64af3d;
+  background-color: #14ffec;
+  color: #323232;
 }
 .quantity{
   display: flex;
