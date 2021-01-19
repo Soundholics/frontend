@@ -6,8 +6,8 @@
         <router-link to="/merchantdashboard" class="style" v-if="!isProfile"><b-icon icon="headphones" class="style" aria-hidden="true"></b-icon>Soundholics</router-link>
         </b-navbar-brand>
         <b-nav-form class="mx-auto" style="width:200px"> <!--style="width:200px"-->
-          <b-form-input class="mx-auto" placeholder="Search"></b-form-input>
-          <b-button class="style mx-auto" to="/search">Search</b-button>
+          <b-form-input class="mx-auto" placeholder="Search" v-model="searchTerm"></b-form-input>
+          <b-button class="style mx-auto" :to="'/search/searching/' + this.searchTerm">Search</b-button>
         </b-nav-form>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -40,7 +40,8 @@ export default {
   data: () => ({
     isLogin: false,
     isCustomer: false,
-    isProfile: true
+    isProfile: true,
+    searchTerm: ''
   }),
   updated () {
     if (this.$store.getters.getLoginStatus) {

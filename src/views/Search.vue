@@ -16,13 +16,17 @@
         <div v-for="(value, key) in this.filterData" :key="key">
           <h5>{{key}}</h5>
           <ul>
-            <li v-for="entry in value" :key="entry"><input type="checkbox" name="" id="">{{entry}}</li>
+            <li v-for="entry in value" :key="entry">
+              <input type="checkbox" name="" id="" :value="entry" v-model="selected">{{entry}}
+            </li>
           </ul>
         </div>
+        <button @click="applyFilters">Apply</button>
       </div>
       <section class="products">
         <SearchResult v-for="product in products" v-bind:key="product.productId" :product="product"/>
       </section>
+      selected {{selected}}
     </div>
   </div>
 
@@ -34,72 +38,37 @@ export default {
   name: 'Search',
   components: { SearchResult },
   data: () => ({
-    products: [
-      {
-        productId: 'id1',
-        productName: 'Product Name',
-        price: 599,
-        image: 'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg'
-      },
-      {
-        productId: 'id2',
-        productName: 'Product Name',
-        price: 499,
-        image: 'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg'
-      },
-      {
-        productId: 'id3',
-        productName: 'Product Name',
-        price: 799,
-        image: 'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg'
-      },
-      {
-        productId: 'id4',
-        productName: 'Product Name',
-        price: 599,
-        image: 'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg'
-      },
-      {
-        productId: 'id5',
-        productName: 'Product Name',
-        price: 199,
-        image: 'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg'
-      },
-      {
-        productId: 'id7',
-        productName: 'Product Name',
-        price: 299,
-        image: 'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg'
-      },
-      {
-        productId: 'id8',
-        productName: 'Product Name',
-        price: 299,
-        image: 'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg'
-      },
-      {
-        productId: 'id9',
-        productName: 'Product Name',
-        price: 299,
-        image: 'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg'
-      },
-      {
-        productId: 'id10',
-        productName: 'Product Name',
-        price: 299,
-        image: 'https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg'
-      }
-    ],
+    products: [],
+    selected: [],
     filterData: {
-      price: ['Rs. 498 and Below', 'Rs. 499 - 998', 'Rs. 999 - 1498', 'Rs. 1499 - 1998', 'Rs. 1999 - 2498', 'Rs. 2499 - 4998', 'Rs. 4999 and Above'],
       brand: ['JBL', 'SkullCandy', 'Sony', 'Bose', 'Sennheiser', 'Ubon', 'Boat', 'Samsung', 'Apple'],
       colors: ['Red', 'Black', 'Blue', 'Green', 'Cyan', 'Olive', 'Purple', 'Brown'],
       ergonomics: ['Wired', 'WireLess'],
-      category: ['headphones', 'earphones', 'earbuds', 'audio players', 'speakers'],
-      rating: ['5 stars', '4 stars', '3 stars', '2 star and above'],
-      stock: ['exclude out of stock']
+      category: ['headphones', 'earphones', 'earbuds', 'audio players', 'speakers']
     }
-  })
+  }),
+  methods: {
+    applyFilters () {
+      let result = ''
+      this.selected.forEach(element => {
+        result += (element + ';')
+      })
+      fetch('http://10.177.68.63:8082/search/searching/' + result)
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res)
+          this.products = res
+        })
+    }
+  },
+  beforeMount () {
+    fetch('http://10.177.68.63:8082/search/searching/' + this.$route.params.searchTerm)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res)
+        this.products = res
+      })
+  }
 }
 </script>
 

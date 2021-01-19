@@ -91,7 +91,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "register" */ '../views/MerchantDashboard.vue')
   },
   {
-    path: '/search',
+    path: '/search/searching/:searchTerm',
     name: 'Search',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

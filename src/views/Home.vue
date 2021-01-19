@@ -3,24 +3,34 @@
     <Carousel/>
     <nav id="cat">
     <figure>
-      <img src="../assets/headphone.svg" alt="Headphone">
-      <figcaption>Headphones</figcaption>
+      <router-link to="/search/headphones">
+        <img src="../assets/headphone.svg" alt="Headphone">
+        <figcaption>Headphones</figcaption>
+      </router-link>
     </figure>
     <figure>
-      <img src="../assets/earphone.svg" alt="Earphone">
-      <figcaption>Earphone</figcaption>
+      <router-link to="/search/earphones">
+        <img src="../assets/earphone.svg" alt="Earphone">
+        <figcaption>Earphone</figcaption>
+      </router-link>
     </figure>
     <figure>
-      <img src="../assets/speaker.svg" alt="Speaker">
-      <figcaption>Speaker</figcaption>
+      <router-link to="/search/speakers">
+        <img src="../assets/speaker.svg" alt="Speaker">
+        <figcaption>Speaker</figcaption>
+      </router-link>
     </figure>
     <figure>
-      <img src="../assets/earbud.svg" alt="Earbuds">
-      <figcaption>Earbuds</figcaption>
+      <router-link to="/search/earbuds">
+        <img src="../assets/earbud.svg" alt="Earbuds">
+        <figcaption>Earbuds</figcaption>
+      </router-link>
     </figure>
     <figure>
-      <img src="../assets/audioplayer.svg" alt="Audio Players">
-      <figcaption>Audio Players</figcaption>
+      <router-link to="/search/audioplayers">
+        <img src="../assets/audioplayer.svg" alt="Audio Players">
+        <figcaption>Audio Players</figcaption>
+      </router-link>
     </figure>
     </nav>
     <Card :productItem="products"/>
