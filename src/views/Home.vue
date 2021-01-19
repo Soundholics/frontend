@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-        <Carousel/>
+    <Carousel/>
     <nav id="cat">
     <figure>
       <img src="../assets/headphone.svg" alt="Headphone">
@@ -23,7 +23,7 @@
       <figcaption>Audio Players</figcaption>
     </figure>
     </nav>
-    <card :productItem="products"/>
+    <Card :productItem="products"/>
   </div>
 </template>
 
