@@ -5,7 +5,7 @@
       <p>Ordered Date</p>
       <p>Order</p>
       <p>Quantity</p>
-      <p>Price</p>
+      <p>Customer Email</p>
     </div>
     <MerchantOrder v-for="order in orders" :key="order.name" :order="order" />
   </div>
@@ -20,33 +20,30 @@ export default {
     orders: []
   }),
   beforeMount () {
-    const data = [
-      {
-        name: 'order 1',
-        quantity: 3,
-        date: '21/01/2311',
-        price: 341
-      },
-      {
-        name: 'order 2',
-        quantity: 2,
-        date: '21/01/2311',
-        price: 124
-      },
-      {
-        name: 'order 3',
-        quantity: 4,
-        date: '21/01/2311',
-        price: 342
-      }
-    ]
+    const data = []
     // fetch data
-    // fetch('/merchant/orders/ani')
-    //   .then((res)=>res.json())
-    //   .then(() => {
-    //     this.orders=res
-    //   })
-    console.log(1)
+    fetch('http://10.177.68.63:8082/merchant/' + this.$store.getters.getmerchantEmail)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res)
+        res.orderId.forEach(element => {
+          fetch('http://10.177.68.63:8082/order/getOrderById/' + element)
+            .then((res) => res.json())
+            .then((res) => {
+              console.log(res)
+              res.productEntities.forEach((ele) => {
+                if (ele.merchantId === this.$store.getters.getmerchantEmail) {
+                  data.push({
+                    name: element,
+                    quantity: ele.quantity,
+                    customerEmail: res.customerEmail,
+                    date: '21/03/2322'
+                  })
+                }
+              })
+            })
+        })
+      })
     this.orders = data
   }
 

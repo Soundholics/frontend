@@ -3,7 +3,7 @@
     <p>{{order.date}}</p>
     <p>{{order.name}}</p>
     <p>{{order.quantity}}</p>
-    <p>{{order.price}}</p>
+    <p>{{order.customerEmail}}</p>
   </div>
 </template>
 
