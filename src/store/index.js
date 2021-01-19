@@ -20,7 +20,6 @@ export default new Vuex.Store({
     },
     LOGOUT (state) {
       state.status = ''
-      state.token = ''
       state.isLogin = false
     }
   },

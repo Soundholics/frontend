@@ -2,7 +2,8 @@
   <div id="app">
       <b-navbar toggleable="md" type="dark" variant="dark" fixed="top" id="nav"> <!-- class navbar id nav-->
         <b-navbar-brand class="right">
-        <router-link to="/" class="style"><b-icon icon="headphones" class="style" aria-hidden="true"></b-icon>Soundholics</router-link>
+        <router-link to="/" class="style" v-if="isProfile"><b-icon icon="headphones" class="style" aria-hidden="true"></b-icon>Soundholics</router-link>
+        <router-link to="/merchantdashboard" class="style" v-if="!isProfile"><b-icon icon="headphones" class="style" aria-hidden="true"></b-icon>Soundholics</router-link>
         </b-navbar-brand>
         <b-nav-form class="mx-auto" style="width:200px"> <!--style="width:200px"-->
           <b-form-input class="mx-auto" placeholder="Search"></b-form-input>
@@ -13,10 +14,10 @@
 
         <b-collapse id="nav-collapse" class="justify-content-end" is-nav> <!--style="max-width:17rem;"-->
           <b-navbar-nav class="ms-auto">
-            <b-nav-item to="/merchantlogin" class="style" v-if="!isLogin" @click="toggleMerchantProfile">Seller Login</b-nav-item>
+            <b-nav-item to="/merchantlogin" class="style" v-if="!isLogin">Seller Login</b-nav-item>
             <b-nav-item to="/login" class="style" v-if="!isLogin">Login</b-nav-item>
             <b-nav-item to="/" class="style" v-if="isLogin" @click="logout">Logout</b-nav-item>
-            <b-nav-item to="/cart" class="style"><b-icon icon="cart4" aria-hidden="true"></b-icon>Cart</b-nav-item>
+            <b-nav-item to="/cart" class="style" v-if="isProfile"><b-icon icon="cart4" aria-hidden="true"></b-icon>Cart</b-nav-item>
             <b-nav-item to="/profile" class="style" v-if="isLogin && isProfile">Profile</b-nav-item>
             <b-nav-item to="/merchantprofile" class="style" v-if="isLogin && !isProfile">Profile</b-nav-item>
           </b-navbar-nav>
@@ -44,6 +45,9 @@ export default {
   updated () {
     if (this.$store.getters.getLoginStatus) {
       this.isLogin = true
+      if (this.$store.getters.getGSTPin) {
+        this.isProfile = false
+      }
     } else {
       this.isLogin = false
     }
@@ -51,10 +55,10 @@ export default {
   methods: {
     logout () {
       this.$store.dispatch('logoutStatus')
-      this.isLogin = false
-    },
-    toggleMerchantProfile () {
-      this.isProfile = false
+      this.isLogin = !this.isLogin
+      if (!this.isProfile) {
+        this.isProfile = true
+      }
     }
   }
 }
