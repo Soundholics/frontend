@@ -2,23 +2,14 @@
   <div id="cartpage">
     <div class="shopping-cart">
       <h1>Your Cart</h1>
-      <CartItem v-for="cartItem in products" :key="cartItem.productName" :cartItem="cartItem" :cartSave="products"/>
+      <CartItem @reloadCart="reload" v-for="cartItem in products" :key="cartItem.productId" :cartItem="cartItem" :cartSave="products"/>
     </div>
     <div id="spacer"></div>
     <div class="summary">
       <label for="address">Address:</label>
-      <p>Bangalore, Karnataka</p>
+      <p>{{address}}</p>
       <label for="total">Subtotal:</label>
       <!-- <p><span>{{subtotal}}</span></p> -->
-      <!-- <div>
-        <label for="cars">Select payment method:</label>
-        <select name="cars" id="cars">
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option>
-        </select>
-      </div> -->
       <router-link to="/ordersuccessful"><button id="checkout" @click="checkout">Checkout</button></router-link>
     </div>
   </div>
@@ -42,31 +33,37 @@ export default {
         sum += (element.productPrice * element.quantity)
       })
       return sum
+    },
+    address: function () {
+      return this.$store.getters.getAddress
     }
   },
   mounted () {
-    const data = []
-    fetch('http://10.177.68.63:8082/order/getCart/' + this.$store.getters.getEmail)
-      .then((res) => res.json())
-      .then((res) => {
-        this.$store.dispatch('fetchProduct', res)
-        console.log('firsr Result', this.$store.state.product)
-        res.productEntities.forEach((element) => {
-          const temp = {}
-          // console.log(element)
-          temp.productId = element.productId
-          temp.merchantId = element.merchantId
-          temp.quantity = element.quantity
-          data.push(temp)
-        })
-        this.products = data
-        console.log('data inside fetch vue', this.products)
-      })
-    // console.log(this.$store.state.product)
-    // console.log('data outside vue', this.products)
-    // this.products = data
+    this.fetchData()
   },
   methods: {
+    reload () {
+      this.fetchData()
+    },
+    fetchData () {
+      const data = []
+      fetch('http://10.177.68.63:8082/order/getCart/' + this.$store.getters.getEmail)
+        .then((res) => res.json())
+        .then((res) => {
+          this.$store.dispatch('fetchProduct', res)
+          console.log('firsr Result', this.$store.state.product)
+          res.productEntities.forEach((element) => {
+            const temp = {}
+            // console.log(element)
+            temp.productId = element.productId
+            temp.merchantId = element.merchantId
+            temp.quantity = element.quantity
+            data.push(temp)
+          })
+          this.products = data
+          console.log('data inside fetch vue', this.products)
+        })
+    },
     checkout () {
       // send order details
       this.order.date = new Date()
@@ -98,6 +95,7 @@ export default {
             .then((res) => res.json())
             .then((res) => {
               console.log(res)
+              this.$router.push('/ordersuccessful')
             })
         })
       // redirect to order summary
