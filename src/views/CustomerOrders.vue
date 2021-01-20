@@ -3,13 +3,17 @@
     <h1>Your Orders</h1>
     <div class="table">
       <div id="heading">
-      <p>Ordered Date</p>
       <p>Image</p>
       <p>Product Name</p>
       <p>Quantity</p>
       <p>Price</p>
     </div>
-    <CustomerOrder v-for="order in orders" :key="order.name" :order="order" />
+    <div v-for="d in date" :key="d">
+      <div id="date">
+      <label>Order Date:</label>{{d}}
+      </div>
+    <CustomerOrder v-for="order in dataOrder" :key="order._id" :order="order" />
+    </div>
       </div>
   </div>
 </template>
@@ -20,9 +24,14 @@ export default {
   name: 'MerchantOrders',
   components: { CustomerOrder },
   data: () => ({
-    orders: []
+    orders: [],
+    dataOrder: [],
+    date: [],
+    products: []
   }),
   beforeMount () {
+    // const datas = []
+    const dat = {}
     const data = [
       {
         name: 'order 1',
@@ -49,6 +58,26 @@ export default {
     //   .then(() => {
     //     this.orders=res
     //   })
+    fetch('http://10.177.68.63:8082/order/getOrder/' + this.$store.getters.getEmail)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res)
+        res.forEach((element) => {
+          let quantity = 0
+          // this.dat.push(element.date)
+          dat._id = element._id
+          dat.date = element.date
+          dat.price = element.totalPrice
+          element.productEntities.forEach((element) => {
+            quantity += element.quantity
+          })
+          dat.quantity = quantity
+          this.dataOrder.push(dat)
+          // this.products = datas
+          console.log('data inside fetch vue', this.dataOrder)
+        })
+        // this.dataOrder.date = res.date
+      })
     console.log(1)
     this.orders = data
   }
@@ -57,6 +86,12 @@ export default {
 </script>
 
 <style scoped>
+#date{
+  display: flex;
+  justify-content: space-between;
+  background-color: #121212;
+  color: #14ffec;
+}
 #orders{
   margin: 10%;
   color: #14ffec;
