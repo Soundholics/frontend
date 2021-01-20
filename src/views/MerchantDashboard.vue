@@ -130,58 +130,87 @@ export default {
           getAttributeValue: this.price
         }]
       console.log(this.product)
-      fetch('http://10.177.68.63:8082/product/addproduct', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(this.product)
-      }).then(res => res.json())
-        .then(res => {
-          console.log(res)
-          this.inventory.productId = res.productId
-          this.inventory.merchantId = this.$store.getters.getmerchantEmail
-          fetch('http://10.177.68.63:8082/Inventory/save', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.inventory)
-          }).then(res => res.json())
-            .then(res => {
-              console.log(res)
-              fetch('http://10.177.68.63:8082/Inventory/findProducts/' + this.$store.getters.getmerchantEmail)
-                .then((res) => res.json())
-                .then((res) => {
-                  this.products = res
-                })
-            })
-
-          const searchObj = {}
-          searchObj.productId = res.productId
-          searchObj.productName = res.name
-          searchObj.category = res.category
-          searchObj.stock = res.stock
-          searchObj.attribute = ''
-
-          for (const index in this.product.attribute) {
-            searchObj.attribute += this.product.attribute[index].attributeKey
-            searchObj.attribute += ';'
-            searchObj.attribute += this.product.attribute[index].getAttributeValue
-            searchObj.attribute += ';'
-          }
-          console.log(searchObj)
-          fetch('http://10.177.68.63:8082/search/add', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(searchObj)
-          })
-            .then((res) => {
-              console.log(res)
-            })
+      if (this.addNewProduct) {
+        fetch('http://10.177.68.63:8082/product/addproduct', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.product)
         })
+          .then(res => res.json())
+          .then(res => {
+            console.log(res)
+            this.inventory.productId = res.productId
+            this.inventory.merchantId = this.$store.getters.getmerchantEmail
+            fetch('http://10.177.68.63:8082/Inventory/save', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(this.inventory)
+            })
+              .then(res => res.json())
+              .then(res => {
+                console.log(res)
+                fetch('http://10.177.68.63:8082/Inventory/findProducts/' + this.$store.getters.getmerchantEmail)
+                  .then((res) => res.json())
+                  .then((res) => {
+                    this.products = res
+                  })
+              })
+
+            const searchObj = {}
+            searchObj.productId = res.productId
+            searchObj.productName = res.name
+            searchObj.category = res.category
+            searchObj.stock = res.stock
+            searchObj.attribute = ''
+
+            for (const index in this.product.attribute) {
+              searchObj.attribute += this.product.attribute[index].attributeKey
+              searchObj.attribute += ';'
+              searchObj.attribute += this.product.attribute[index].getAttributeValue
+              searchObj.attribute += ';'
+            }
+            console.log(searchObj)
+            fetch('http://10.177.68.63:8082/search/add', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(searchObj)
+            })
+              .then((res) => {
+                console.log(res)
+              })
+          })
+      } else {
+        let tempId = ''
+        this.productList.forEach((element) => {
+          if (element.name === this.product.name) {
+            tempId = element.productId
+          }
+        })
+        this.inventory.productId = tempId
+        this.inventory.merchantId = this.$store.getters.getmerchantEmail
+        console.log(this.inventory)
+        fetch('http://10.177.68.63:8082/Inventory/save', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.inventory)
+        }).then(res => res.json())
+          .then(res => {
+            console.log(res)
+            fetch('http://10.177.68.63:8082/Inventory/findProducts/' + this.$store.getters.getmerchantEmail)
+              .then((res) => res.json())
+              .then((res) => {
+                this.products = res
+              })
+          })
+      }
       this.product.images = []
       this.stock = ''
       this.brand = ''
