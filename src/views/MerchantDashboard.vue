@@ -39,10 +39,6 @@
                         <select v-model="product.category" text="Category">
               <option v-for="entry in categoryList" :key="entry">{{entry}}</option>
             </select>
-            <label>Rating:</label>
-                        <select v-model="rating" text="Rating">
-              <option v-for="entry in ratingList" :key="entry">{{entry}}</option>
-            </select>
         <div>
           <label>Images:</label><input type="text" v-model="image" id="image"> <button @click="addImage">Add More Images</button></div>
         {{this.product.images}}
@@ -82,7 +78,6 @@ export default {
     brand: '',
     colors: '',
     ergonomics: '',
-    rating: '',
     quantity: '',
     price: '',
     productList: [],
@@ -91,7 +86,6 @@ export default {
     colorsList: ['Red', 'Black', 'Blue', 'Green', 'Cyan', 'Olive', 'Purple', 'Brown'],
     ergonomicsList: ['Wired', 'WireLess'],
     categoryList: ['headphones', 'earphones', 'earbuds', 'audio players', 'speakers'],
-    ratingList: ['5 stars', '4 stars', '3 stars', '2 star and above'],
     stockList: ['exclude out of stock'],
     addNewProduct: false
   }),
@@ -132,10 +126,6 @@ export default {
           getAttributeValue: this.ergonomics
         },
         {
-          attributeKey: 'rating',
-          getAttributeValue: this.rating
-        },
-        {
           attributeKey: 'price',
           getAttributeValue: this.price
         }]
@@ -166,7 +156,39 @@ export default {
                   this.products = res
                 })
             })
+
+          const searchObj = {}
+          searchObj.productId = res.productId
+          searchObj.productName = res.name
+          searchObj.category = res.category
+          searchObj.stock = res.stock
+          searchObj.attribute = ''
+
+          for (const index in this.product.attribute) {
+            searchObj.attribute += this.product.attribute[index].attributeKey
+            searchObj.attribute += ';'
+            searchObj.attribute += this.product.attribute[index].getAttributeValue
+            searchObj.attribute += ';'
+          }
+          console.log(searchObj)
+          fetch('http://10.177.68.63:8082/search/add', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(searchObj)
+          })
+            .then((res) => {
+              console.log(res)
+            })
         })
+      this.product.images = []
+      this.stock = ''
+      this.brand = ''
+      this.colors = ''
+      this.ergonomics = ''
+      this.quantity = ''
+      this.price = ''
     }
   }
 }

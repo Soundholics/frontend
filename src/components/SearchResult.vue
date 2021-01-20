@@ -2,7 +2,7 @@
   <div class="product-card">
     <router-link :to="'/product/' + product.productId">
       <div class="product-image">
-        <img src="https://media.wired.com/photos/59e95567ce22fd0cca3c5262/master/w_2560%2Cc_limit/1M9A0509_V3.jpg">
+        <img :src="this.image">
       </div>
       <div class="product-info">
         <h5>{{product.productName}}</h5>
@@ -17,7 +17,8 @@ export default {
   name: 'SearchResult',
   props: ['product'],
   data: () => ({
-    price: ''
+    price: '',
+    image: ''
   }),
   mounted () {
     fetch('http://10.177.68.63:8082/Inventory/findPrice/' + this.product.productId)
@@ -25,6 +26,12 @@ export default {
       .then((res) => {
         console.log(res)
         this.price = res
+      })
+    fetch('http://10.177.68.63:8082/product/getproduct/' + this.product.productId)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res)
+        this.image = res.images[0]
       })
   }
 }

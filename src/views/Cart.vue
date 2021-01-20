@@ -98,6 +98,17 @@ export default {
               this.$router.push('/ordersuccessful')
             })
         })
+        .then(() => {
+          fetch('http://10.177.68.63:8082/order/deleteCart/' + this.$store.getters.getEmail, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+            .then((res) => {
+              console.log(res)
+            })
+        })
       // redirect to order summary
       // console.log('done')
     }
