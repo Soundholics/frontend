@@ -21,7 +21,7 @@
           @sliding-end="onSlideEnd"
         >
           <!-- Slides with image only -->
-          <b-carousel-slide v-for="image in this.images" :img-src="image" :key="image"></b-carousel-slide>
+          <b-carousel-slide v-for="image in this.product.images" :img-src="image" :key="image"></b-carousel-slide>
         </b-carousel>
       </div>
       <!-- Right Column -->
