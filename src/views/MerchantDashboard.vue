@@ -1,7 +1,7 @@
 <template>
   <div id="merchantDashboard">
     <h1>Dashboard</h1>
-    <b-button v-b-modal.modal>Add Product</b-button>
+    <b-button v-b-modal.modal id="modalButton">Add Product</b-button>
     <router-link to="/merchantorders" class="style"><button>Show Orders</button></router-link>
     <div id="heading">
       <p>Product Name</p>
@@ -21,23 +21,31 @@
         </div>
         <div><label>Quantity:</label><input type="number" v-model="inventory.quantity"></div>
         <div><label>Features:</label><br>
+        <label>Price:</label>
             <input type="text" v-model="inventory.price">
-                        <select v-model="brand" text="Brand">
+            <label>Brand:</label>
+                        <select v-model="brand" text="Brand" name="Brand">
               <option v-for="entry in brandList" :key="entry">{{entry}}</option>
             </select>
+            <label>Ergonomics:</label>
                         <select v-model="ergonomics" text="Ergonomics">
               <option v-for="entry in ergonomicsList" :key="entry">{{entry}}</option>
             </select>
+            <label>Colors:</label>
                         <select v-model="colors" text="Colors">
               <option v-for="entry in colorsList" :key="entry">{{entry}}</option>
             </select>
+            <label>Category:</label>
                         <select v-model="product.category" text="Category">
               <option v-for="entry in categoryList" :key="entry">{{entry}}</option>
             </select>
+            <label>Rating:</label>
                         <select v-model="rating" text="Rating">
               <option v-for="entry in ratingList" :key="entry">{{entry}}</option>
             </select>
-        <div>Images:<input type="file"></div>
+        <div>
+          <label>Images:</label><input type="text" v-model="image" id="image"> <button @click="addImage">Add More Images</button></div>
+        {{this.product.images}}
         <button @click="addProduct">Submit</button>
         </div>
       </b-modal>
@@ -60,7 +68,8 @@ export default {
     product: {
       name: '',
       category: '',
-      attribute: []
+      attribute: [],
+      images: []
     },
     inventory: {
       price: 0.0,
@@ -68,6 +77,7 @@ export default {
       merchant_id: '',
       product_id: ''
     },
+    image: '',
     stock: '',
     brand: '',
     colors: '',
@@ -101,6 +111,11 @@ export default {
   methods: {
     toggleNewProduct () {
       this.addNewProduct = !this.addNewProduct
+    },
+    addImage () {
+      this.product.images.push(this.image)
+      this.image = ''
+      document.getElementById('image').nodeValue = ''
     },
     addProduct () {
       this.product.attribute = [
@@ -157,14 +172,22 @@ export default {
 }
 </script>
 
-<style scoped>
-#merchantDashboard{
-  border: 2px solid #323232;
+<style>
+div#merchantDashboard{
+  /* border: 2px solid #323232; */
   margin: 120px auto 0;
   padding: 10px;
 }
-button{
-  margin: 10px
+button, #modalButton{
+  margin: 10px;
+  background-color: #14ffec;
+  color: #323232;
+  border: none;
+  box-shadow: 1px 2px #121212;
+  border-radius: 6px;
+}
+#modalButton{
+  width: fit-content;
 }
 #heading{
     display: flex;

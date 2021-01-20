@@ -1,5 +1,5 @@
 <template>
-  <div class="product">
+  <div id="product">
     <p>{{productName}}</p>
     <input v-if="this.edit" type="text" name="quantity" id="quantity" :value="product.quantity" v-bind="stock">
     <p v-if="!this.edit">{{product.quantity}}</p>
@@ -59,11 +59,11 @@ export default {
 </script>
 
 <style>
-.product {
+#product {
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  background: white;
+  background: #323232;
   border: none;
 }
 </style>

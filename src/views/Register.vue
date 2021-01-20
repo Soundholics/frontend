@@ -46,9 +46,9 @@ export default {
         },
         body: JSON.stringify(this.user)
       })
-        .then(res => res.json())
         .then((res) => {
           console.log(res)
+          this.$router.push('/login')
         })
     }
   }
