@@ -40,8 +40,8 @@
               <option v-for="entry in categoryList" :key="entry">{{entry}}</option>
             </select>
         <div>
-          <label>Images:</label><input type="text" v-model="image" id="image"> <button @click="addImage">Add More Images</button></div>
-        {{this.product.images}}
+          <label>Images:</label><input type="text" v-model="image" id="image"> <button @click="addImage">Add Image</button></div>
+          <p v-for="image in this.product.images" :key="image">{{image}}</p>
         <button @click="addProduct">Submit</button>
         </div>
       </b-modal>
@@ -83,7 +83,7 @@ export default {
     productList: [],
     priceList: ['Rs. 498 and Below', 'Rs. 499 - 998', 'Rs. 999 - 1498', 'Rs. 1499 - 1998', 'Rs. 1999 - 2498', 'Rs. 2499 - 4998', 'Rs. 4999 and Above'],
     brandList: ['JBL', 'SkullCandy', 'Sony', 'Bose', 'Sennheiser', 'Ubon', 'Boat', 'Samsung', 'Apple'],
-    colorsList: ['Red', 'Black', 'Blue', 'Green', 'Cyan', 'Olive', 'Purple', 'Brown'],
+    colorsList: ['Red', 'Black', 'Blue', 'Green', 'Cyan', 'Olive', 'Purple', 'Brown', 'White'],
     ergonomicsList: ['Wired', 'WireLess'],
     categoryList: ['headphones', 'earphones', 'earbuds', 'audio players', 'speakers'],
     stockList: ['exclude out of stock'],
@@ -199,6 +199,7 @@ div#merchantDashboard{
   /* border: 2px solid #323232; */
   margin: 120px auto 0;
   padding: 10px;
+  color: #14ffec;
 }
 button, #modalButton{
   margin: 10px;

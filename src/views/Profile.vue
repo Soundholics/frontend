@@ -6,7 +6,7 @@
       <b-col md="4">
         <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
         <div class="mt-3">
-          <button class="btn btn-primary">My Orders</button>
+          <!-- <button class="btn btn-primary">My Orders</button> -->
           <button class="btn btn-outline-primary" @click="toggleEdit">Edit</button>
           <button v-if="edit" class="btn btn-primary" @click="saveEdit">Save</button>
         </div>
