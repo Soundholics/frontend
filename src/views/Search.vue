@@ -26,7 +26,6 @@
       <section class="products">
         <SearchResult v-for="product in products" v-bind:key="product.productId" :product="product"/>
       </section>
-      selected {{selected}}
     </div>
   </div>
 

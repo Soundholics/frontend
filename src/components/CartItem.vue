@@ -23,7 +23,7 @@
     <div class="total-price">${{this.price * cartItem.quantity}}</div>
 
     <div class="buttons">
-      <button><b-icon-trash></b-icon-trash></button>
+      <button @click="deleteItem"><b-icon-trash></b-icon-trash></button>
       <!-- <span class="delete-btn"></span> -->
     </div>
   </div>
@@ -56,6 +56,24 @@ export default {
       })
         .then(res => {
           console.log(res)
+        })
+    },
+    deleteItem () {
+      console.log(this.cartSave)
+      const temp = this.cartSave.filter((element) => {
+        return element.productId !== this.cartItem.productId
+      })
+      const result = { customerEmail: this.$store.getters.getEmail, productEntities: temp }
+      fetch('http://10.177.68.63:8082/order/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(result)
+      })
+        .then(res => {
+          console.log(res)
+          this.$emit('reloadCart')
         })
     }
   },

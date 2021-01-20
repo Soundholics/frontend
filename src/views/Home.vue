@@ -3,31 +3,31 @@
     <Carousel/>
     <nav id="cat">
     <figure>
-      <router-link to="/search/headphones">
+      <router-link to="/search/searching/headphones">
         <img src="../assets/headphone.svg" alt="Headphone">
         <figcaption>Headphones</figcaption>
       </router-link>
     </figure>
     <figure>
-      <router-link to="/search/earphones">
+      <router-link to="/search/searching/earphones">
         <img src="../assets/earphone.svg" alt="Earphone">
         <figcaption>Earphone</figcaption>
       </router-link>
     </figure>
     <figure>
-      <router-link to="/search/speakers">
+      <router-link to="/search/searching/speakers">
         <img src="../assets/speaker.svg" alt="Speaker">
         <figcaption>Speaker</figcaption>
       </router-link>
     </figure>
     <figure>
-      <router-link to="/search/earbuds">
+      <router-link to="/search/searching/earbuds">
         <img src="../assets/earbud.svg" alt="Earbuds">
         <figcaption>Earbuds</figcaption>
       </router-link>
     </figure>
     <figure>
-      <router-link to="/search/audioplayers">
+      <router-link to="/search/searching/audioplayers">
         <img src="../assets/audioplayer.svg" alt="Audio Players">
         <figcaption>Audio Players</figcaption>
       </router-link>
