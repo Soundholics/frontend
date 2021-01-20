@@ -19,7 +19,7 @@
           <option value="audi">Audi</option>
         </select>
       </div> -->
-      <button id="checkout" @click="checkout">Checkout</button>
+      <router-link to="/ordersuccessful"><button id="checkout" @click="checkout">Checkout</button></router-link>
     </div>
   </div>
 </template>

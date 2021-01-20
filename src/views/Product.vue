@@ -32,30 +32,8 @@
           <h1>{{product.name}}</h1>
           <p>{{product.description}}</p>
         </div>
-        <!-- Product Configuration -->
-        <div class="product-configuration">
-          <!-- Product Color -->
-          <div class="product-color">
-            <label>Color:</label>
-            <div class="color-choose">
-              <div>
-                <input data-image="red" type="radio" id="red" name="color" value="red" checked>
-                <label for="red"><span></span></label>
-              </div>
-              <div>
-                <input data-image="blue" type="radio" id="blue" name="color" value="blue">
-                <label for="blue"><span></span></label>
-              </div>
-              <div>
-                <input data-image="black" type="radio" id="black" name="color" value="black">
-                <label for="black"><span></span></label>
-              </div>
-            </div>
-          </div>
-        </div>
+
         <!-- Product Pricing -->
-        {{this.cart.customerEmail}}
-        {{this.cart.products.productId}}
         <div class="product-price">
           <span>${{merchantList[currentMerchant].price*quantity}}</span>
         </div>
@@ -64,14 +42,12 @@
             <label>Quantity: </label>
             <b-form-spinbutton ide="demo-sb" v-model="quantity" min="1" max="100" inline></b-form-spinbutton>
           </div>
-          {{this.quantity}}
           <br>
         <p>Sold by:
           <select name="" id="" v-model="currentMerchant">
             <option v-for="(merchant, index) in merchantList" :value="index" :key="merchant.merchantId" >{{merchant.merchantId}}</option>
           </select>
         </p>
-        {{this.merchantList[currentMerchant].merchantId}}
         <a href="#" class="cart-btn" @click="cartSave">Add to cart</a>
       </div>
     </main>
