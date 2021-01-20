@@ -63,6 +63,7 @@ export default {
       })
         .then(res => res.json())
         .then((res) => {
+          this.$router.push('/merchantlogin')
           console.log(res)
         })
     }
