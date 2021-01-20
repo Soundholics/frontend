@@ -3,25 +3,24 @@
     <h1>Your Orders</h1>
     <div class="table">
       <div id="heading">
-      <p>Image</p>
-      <p>Product Name</p>
+      <p style="margin-right:160px;">Order ID</p>
+      <p>Date Ordered</p>
       <p>Quantity</p>
-      <p>Price</p>
+      <!-- <p>Price</p> -->
     </div>
-    <div v-for="d in date" :key="d">
+    <!-- <div v-for="d in date" :key="d">
       <div id="date">
       <label>Order Date:</label>{{d}}
-      </div>
+      </div> -->
     <CustomerOrder v-for="order in dataOrder" :key="order._id" :order="order" />
     </div>
       </div>
-  </div>
 </template>
 
 <script>
 import CustomerOrder from '../components/CustomerOrder'
 export default {
-  name: 'MerchantOrders',
+  name: 'CustomerOrders',
   components: { CustomerOrder },
   data: () => ({
     orders: [],
@@ -78,7 +77,7 @@ export default {
         })
         // this.dataOrder.date = res.date
       })
-    console.log(1)
+    console.log(this.dataOrder)
     this.orders = data
   }
 

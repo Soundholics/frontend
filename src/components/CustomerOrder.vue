@@ -1,11 +1,10 @@
 <template>
   <div class="order">
-    <p>{{order.date}}</p>
+    <p>{{order._id}}</p>
+    <p>{{date}}</p>
     <!-- <img :img-src="this.image" alt="Image of product"> -->
-    <img src="../assets/earbud.svg" alt="">
-    <p>{{order.name}}</p>
     <p>{{order.quantity}}</p>
-    <p>{{order.price}}</p>
+    <!-- <p>{{order.price}}</p> -->
   </div>
 </template>
 
@@ -18,8 +17,12 @@ export default {
     date: '',
     price: '',
     quantity: ''
-  })
-  // mounted () {
+  }),
+  beforeMount () {
+    this.date = this.order.date.slice(0, 10)
+    console.log('Inside component')
+    console.log(this.order)
+  }
   //   fetch('http://10.177.68.63:8082/product/getproduct/' + this.order.productId)
   //     .then((res) => res.json())
   //     .then((res) => {
